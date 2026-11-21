@@ -30,6 +30,7 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import night.BuildConstants;
 import night.Night;
 import night.gui.ClickGuiScreen;
 import night.gui.screens.account.AccountManagerScreen;
@@ -57,7 +58,7 @@ extends Screen {
         }
         this.entries.clear();
         if (Night.FONT_MANAGER != null) {
-            Night.FONT_MANAGER.getWidth("Singleplayer Multiplayer Account Manager Options Quit Night v26");
+            Night.FONT_MANAGER.getWidth("Singleplayer Multiplayer Account Manager Options Quit Night " + BuildConstants.MOD_VERSION);
             Night.FONT_MANAGER.getHeight();
         }
         int buttonWidth = 230;
@@ -110,7 +111,7 @@ extends Screen {
         } else {
             Night.FONT_MANAGER.drawTextWithShadow(context, title, titleX, titleY, new Color(255, 255, 255, (int)(255.0f * ease)));
         }
-        String subtitle = "v26 \u2022 MC 26.2";
+        String subtitle = BuildConstants.MOD_VERSION + " \u2022 MC " + BuildConstants.MINECRAFT_VERSION;
         int subWidth = Night.FONT_MANAGER.getWidth(subtitle);
         Night.FONT_MANAGER.drawTextWithShadow(context, subtitle, this.width / 2 - subWidth / 2, titleY + Night.FONT_MANAGER.getHeight() + 8, new Color(170, 170, 180, (int)(180.0f * ease)));
     }
@@ -118,9 +119,9 @@ extends Screen {
     private void renderFooter(GuiGraphicsExtractor context, float ease) {
         String accountInfo = "Logged in as: \u00a7f" + (Night.ACCOUNT_MANAGER != null ? Night.ACCOUNT_MANAGER.getCurrentName() : "");
         Night.FONT_MANAGER.drawTextWithShadow(context, accountInfo, 6, 6, new Color(200, 200, 200, (int)(200.0f * ease)));
-        String left = "Night v26";
+        String left = "Night " + BuildConstants.MOD_VERSION;
         Night.FONT_MANAGER.drawTextWithShadow(context, left, 4, this.height - Night.FONT_MANAGER.getHeight() - 4, new Color(160, 160, 160, (int)(160.0f * ease)));
-        String right = "git-eeeb439b78";
+        String right = "git-" + BuildConstants.GIT_HASH;
         int rightWidth = Night.FONT_MANAGER.getWidth(right);
         Night.FONT_MANAGER.drawTextWithShadow(context, right, this.width - rightWidth - 4, this.height - Night.FONT_MANAGER.getHeight() - 4, new Color(160, 160, 160, (int)(160.0f * ease)));
     }

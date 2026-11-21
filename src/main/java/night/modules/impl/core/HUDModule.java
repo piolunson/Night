@@ -72,6 +72,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import night.BuildConstants;
 import night.Night;
 import night.events.SubscribeEvent;
 import night.events.impl.RenderOverlayEvent;
@@ -396,11 +397,9 @@ extends Module {
             int width = 0;
             int lines = 0;
             if (this.watermark.getValue()) {
-                String displayVersion;
-                boolean revisionAllowed = true;
-                String string = displayVersion = revisionAllowed ? "v26" : "26";
-                String revisionSegment = !revisionAllowed || !this.watermarkVersion.getValue() ? "" : (!this.watermarkVersionMode.getValue().equals("GitHash") ? "-nightly " + String.valueOf(ChatFormatting.GRAY) + "(2026-09-17)" : "+436.eeeb439b78");
-                String text = this.watermarkText.getValue() + (String)(this.watermarkVersion.getValue() ? String.valueOf(this.watermarkSync.getValue() ? "" : (this.inversion.getValue() ? ChatFormatting.GRAY : ChatFormatting.WHITE)) + " " + displayVersion + (this.watermarkMinecraftVersion.getValue() ? "-mc26.2" : "") + revisionSegment : "");
+                String displayVersion = BuildConstants.MOD_VERSION;
+                String revisionSegment = !this.watermarkVersion.getValue() ? "" : (!this.watermarkVersionMode.getValue().equals("GitHash") ? "-nightly " + String.valueOf(ChatFormatting.GRAY) + "(" + BuildConstants.BUILD_DATE + ")" : "+" + BuildConstants.GIT_REVISION + "." + BuildConstants.GIT_HASH);
+                String text = this.watermarkText.getValue() + (String)(this.watermarkVersion.getValue() ? String.valueOf(this.watermarkSync.getValue() ? "" : (this.inversion.getValue() ? ChatFormatting.GRAY : ChatFormatting.WHITE)) + " " + displayVersion + (this.watermarkMinecraftVersion.getValue() ? "-mc" + BuildConstants.MINECRAFT_VERSION : "") + revisionSegment : "");
                 float textX = 2.0f;
                 if (this.watermarkLogo.getValue()) {
                     int logoSize = Night.FONT_MANAGER.getHeight();

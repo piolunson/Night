@@ -61,13 +61,13 @@ import org.slf4j.LoggerFactory;
 
 public class Night
 implements ModInitializer {
-    public static final String MOD_NAME = "Night";
-    public static final String MOD_ID = "night";
-    public static final String MOD_VERSION = "v26";
-    public static final String MINECRAFT_VERSION = "26.2";
-    public static final String GIT_HASH = "eeeb439b78";
-    public static final String GIT_REVISION = "436";
-    public static final String BUILD_DATE = "2026-09-17";
+    public static final String MOD_NAME = BuildConstants.MOD_NAME;
+    public static final String MOD_ID = BuildConstants.MOD_ID;
+    public static final String MOD_VERSION = BuildConstants.MOD_VERSION;
+    public static final String MINECRAFT_VERSION = BuildConstants.MINECRAFT_VERSION;
+    public static final String GIT_HASH = BuildConstants.GIT_HASH;
+    public static final String GIT_REVISION = BuildConstants.GIT_REVISION;
+    public static final String BUILD_DATE = BuildConstants.BUILD_DATE;
     public static final long UPTIME = System.currentTimeMillis();
     public static final EventHandler EVENT_HANDLER = new EventHandler();
     public static final Logger LOGGER = LoggerFactory.getLogger((String)"Night");
