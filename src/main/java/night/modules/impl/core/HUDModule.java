@@ -117,7 +117,7 @@ extends Module {
     public BooleanSetting watermarkSync = new BooleanSetting("WatermarkSync", "ColorSync", "Uses the client's color for the version.", new CategorySetting.Visibility(this.watermarkCategory), false);
     public CategorySetting welcomerCategory = new CategorySetting("Welcomer", "The settings for the client's welcomer.");
     public BooleanSetting welcomer = new BooleanSetting("Welcomer", "Enabled", "Renders a nice welcome message directed to you.", new CategorySetting.Visibility(this.welcomerCategory), true);
-    public StringSetting welcomerText = new StringSetting("WelcomerText", "Component", "The message that will be rendered.", new CategorySetting.Visibility(this.welcomerCategory), "Cracked By \u00a7f@6mf5");
+    public StringSetting welcomerText = new StringSetting("WelcomerText", "Component", "The message that will be rendered.", new CategorySetting.Visibility(this.welcomerCategory), "Decompiled By \u00a7f@piolunson");
     public BooleanSetting welcomerSync = new BooleanSetting("WelcomerSync", "ColorSync", "Uses the client's color for the username.", new CategorySetting.Visibility(this.welcomerCategory), false);
     public CategorySetting moduleListCategory = new CategorySetting("ModuleList", "The settings for the client's list of enabled modules.");
     public BooleanSetting moduleList = new BooleanSetting("ModuleList", "Enabled", "Renders every enabled module in an organized list.", new CategorySetting.Visibility(this.moduleListCategory), true);

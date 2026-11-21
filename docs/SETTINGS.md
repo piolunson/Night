@@ -931,7 +931,7 @@ Plik: `night/modules/impl/core/HUDModule.java`
 | `WatermarkSync` | Boolean | false |  |  | ColorSync | Uses the client's color for the version. |
 | `Welcomer` | Category |  |  |  |  | The settings for the client's welcomer. |
 | `Welcomer` | Boolean | true |  |  | Enabled | Renders a nice welcome message directed to you. |
-| `WelcomerText` | String | Cracked By \u00a7f@6mf5 |  |  | Component | The message that will be rendered. |
+| `WelcomerText` | String | Decompiled By \u00a7f@piolunson |  |  | Component | The message that will be rendered. |
 | `WelcomerSync` | Boolean | false |  |  | ColorSync | Uses the client's color for the username. |
 | `ModuleList` | Category |  |  |  |  | The settings for the client's list of enabled modules. |
 | `ModuleList` | Boolean | true |  |  | Enabled | Renders every enabled module in an organized list. |
