@@ -1,18 +1,11 @@
 /*
  * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.client.gui.GuiGraphicsExtractor
- *  net.minecraft.client.gui.components.Button
- *  net.minecraft.client.gui.components.EditBox
- *  net.minecraft.client.gui.components.events.GuiEventListener
- *  net.minecraft.client.gui.screens.Screen
- *  net.minecraft.network.chat.Component
  */
 package night.gui;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -20,8 +13,8 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import night.Night;
+import night.modules.impl.core.ClickGuiModule;
 import night.modules.impl.core.PingBypassModule;
-import night.pingbypass.PingBypassConfig;
 import night.pingbypass.PingBypassFlags;
 
 public class PingBypassScreen
@@ -32,7 +25,8 @@ extends Screen {
     private EditBox passwordField;
     private EditBox serverField;
     private Button connectButton;
-    private Button resumeButton;
+    private Button saveButton;
+    private Button disconnectButton;
     private volatile String proxyStatus = "Pinging...";
     private volatile boolean pinged = false;
 
@@ -42,44 +36,46 @@ extends Screen {
     }
 
     protected void init() {
+        PingBypassModule pbModule = Night.MODULE_MANAGER.getModule(PingBypassModule.class);
         int centerX = this.width / 2;
         int startY = 50;
         this.ipField = new EditBox(this.font, centerX - 150, startY, 300, 20, (Component)Component.literal((String)"Proxy IP"));
         this.ipField.setMaxLength(256);
-        this.ipField.setValue(this.getConfig().getIp());
+        this.ipField.setValue(pbModule != null ? pbModule.ip.getValue() : "127.0.0.1");
         this.ipField.setHint((Component)Component.literal((String)"127.0.0.1"));
         this.addRenderableWidget(this.ipField);
         this.portField = new EditBox(this.font, centerX - 150, startY + 34, 145, 20, (Component)Component.literal((String)"Port"));
         this.portField.setMaxLength(5);
-        this.portField.setValue(String.valueOf(this.getConfig().getPort()));
+        this.portField.setValue(String.valueOf(pbModule != null ? pbModule.port.getValue().intValue() : 25565));
         this.portField.setHint((Component)Component.literal((String)"25565"));
         this.addRenderableWidget(this.portField);
         this.passwordField = new EditBox(this.font, centerX + 5, startY + 34, 145, 20, (Component)Component.literal((String)"Password"));
         this.passwordField.setMaxLength(64);
-        this.passwordField.setValue(this.getConfig().getPassword());
+        this.passwordField.setValue(pbModule != null ? pbModule.password.getValue() : "");
         this.passwordField.setHint((Component)Component.literal((String)"Password"));
         this.addRenderableWidget(this.passwordField);
         this.serverField = new EditBox(this.font, centerX - 150, startY + 68, 300, 20, (Component)Component.literal((String)"Target Server"));
         this.serverField.setMaxLength(256);
-        String savedServer = Night.MODULE_MANAGER.getModule(PingBypassModule.class).server.getValue();
-        this.serverField.setValue(savedServer.isEmpty() ? "" : savedServer);
+        this.serverField.setValue(pbModule != null ? pbModule.server.getValue() : "");
         this.serverField.setHint((Component)Component.literal((String)"mc.server.com:25565"));
         this.addRenderableWidget(this.serverField);
-        this.connectButton = Button.builder((Component)Component.literal((String)"Connect"), button -> this.connect()).bounds(centerX - 150, startY + 110, 300, 20).build();
+        this.connectButton = Button.builder((Component)Component.literal((String)"Connect"), button -> this.connect()).bounds(centerX - 150, startY + 110, 145, 20).build();
         this.addRenderableWidget(this.connectButton);
-        PingBypassModule pbModule = Night.MODULE_MANAGER.getModule(PingBypassModule.class);
-        this.resumeButton = Button.builder((Component)Component.literal((String)"Resume Session"), button -> this.resume()).bounds(centerX - 150, startY + 138, 300, 20).build();
-        this.resumeButton.active = pbModule != null && pbModule.isToggled();
-        this.addRenderableWidget(this.resumeButton);
-        this.addRenderableWidget(Button.builder((Component)Component.literal((String)"Back"), button -> this.onClose()).bounds(centerX - 150, this.height - 30, 300, 20).build());
+        this.saveButton = Button.builder((Component)Component.literal((String)"Save"), button -> this.save()).bounds(centerX + 5, startY + 110, 145, 20).build();
+        this.addRenderableWidget(this.saveButton);
+        this.disconnectButton = Button.builder((Component)Component.literal((String)"Disconnect"), button -> this.disconnect()).bounds(centerX - 150, startY + 138, 300, 20).build();
+        this.disconnectButton.active = pbModule != null && pbModule.isToggled();
+        this.addRenderableWidget(this.disconnectButton);
+        this.addRenderableWidget(Button.builder((Component)Component.literal((String)"Back"), button -> this.back()).bounds(centerX - 150, this.height - 30, 300, 20).build());
         this.pingProxy();
     }
 
     private void pingProxy() {
         this.pinged = false;
         this.proxyStatus = "Pinging...";
-        String proxyIp = this.getConfig().getIp();
-        int proxyPort = this.getConfig().getPort();
+        PingBypassModule pbModule = Night.MODULE_MANAGER.getModule(PingBypassModule.class);
+        final String proxyIp = pbModule != null ? pbModule.ip.getValue() : "127.0.0.1";
+        final int proxyPort = this.parsePort(pbModule != null ? pbModule.port.getValue().intValue() : 25565);
         new Thread(() -> {
             try (Socket socket = new Socket();){
                 socket.connect(new InetSocketAddress(proxyIp, proxyPort), 2000);
@@ -106,38 +102,83 @@ extends Screen {
         context.centeredText(this.font, this.proxyStatus, this.width / 2, startY + 165, statusColor);
         if (PingBypassFlags.proxyForwardingActive) {
             PingBypassModule pbModule = Night.MODULE_MANAGER.getModule(PingBypassModule.class);
-            String session = "Session active \u2014 " + (pbModule.getServerName() != null ? pbModule.getServerName() : "connected");
+            String session = "Session active \u2014 " + (pbModule != null && pbModule.getServerName() != null ? pbModule.getServerName() : "connected");
             context.centeredText(this.font, session, this.width / 2, startY + 178, 0x55FF55);
         }
     }
 
+    private void save() {
+        if (!this.applyFields()) {
+            return;
+        }
+        Night.CHAT_MANAGER.message("\u00a7a[PingBypass] Settings saved.");
+        this.pingProxy();
+    }
+
     private void connect() {
         PingBypassModule pbModule = Night.MODULE_MANAGER.getModule(PingBypassModule.class);
-        pbModule.ip.setValue(this.ipField.getValue().trim());
-        try {
-            pbModule.port.setValue(Integer.parseInt(this.portField.getValue().trim()));
+        if (pbModule == null || !this.applyFields()) {
+            return;
         }
-        catch (NumberFormatException numberFormatException) {
-            // empty catch block
-        }
-        pbModule.password.setValue(this.passwordField.getValue());
-        pbModule.server.setValue(this.serverField.getValue().trim());
         if (pbModule.isToggled()) {
             pbModule.setToggled(false, false);
         }
         pbModule.setToggled(true);
     }
 
-    private void resume() {
-        this.minecraft.gui.setScreen(this.parent);
+    private void disconnect() {
+        PingBypassModule pbModule = Night.MODULE_MANAGER.getModule(PingBypassModule.class);
+        if (pbModule != null && pbModule.isToggled()) {
+            pbModule.setToggled(false, false);
+        }
+        this.disconnectButton.active = false;
+    }
+
+    private boolean applyFields() {
+        PingBypassModule pbModule = Night.MODULE_MANAGER.getModule(PingBypassModule.class);
+        if (pbModule == null) {
+            return false;
+        }
+        pbModule.ip.setValue(this.ipField.getValue().trim());
+        int port = this.parsePort(pbModule.port.getValue().intValue());
+        try {
+            port = Integer.parseInt(this.portField.getValue().trim());
+        }
+        catch (NumberFormatException numberFormatException) {
+            // keep the previous port when the field is not a number
+        }
+        port = this.parsePort(port);
+        this.portField.setValue(String.valueOf(port));
+        pbModule.port.setValue(port);
+        pbModule.password.setValue(this.passwordField.getValue());
+        pbModule.server.setValue(this.serverField.getValue().trim());
+        if (this.disconnectButton != null) {
+            this.disconnectButton.active = pbModule.isToggled();
+        }
+        return true;
+    }
+
+    private int parsePort(int port) {
+        return port < 1 || port > 65535 ? 25565 : port;
+    }
+
+    private void back() {
+        if (this.parent instanceof ClickGuiScreen) {
+            ClickGuiModule clickGui = Night.MODULE_MANAGER.getModule(ClickGuiModule.class);
+            Night.CLICK_GUI.setReadyToRemove(false);
+            Night.CLICK_GUI.cancelClose();
+            Night.CLICK_GUI.setAppliedScale(clickGui.scale.getValue().floatValue());
+            if (!clickGui.isToggled()) {
+                clickGui.setToggled(true, false);
+            } else {
+                Minecraft.getInstance().gui.setScreen((Screen)Night.CLICK_GUI);
+            }
+            return;
+        }
+        Minecraft.getInstance().gui.setScreen(this.parent);
     }
 
     public void onClose() {
-        this.minecraft.gui.setScreen(this.parent);
-    }
-
-    private PingBypassConfig getConfig() {
-        return Night.PINGBYPASS_CONFIG;
+        this.back();
     }
 }
-

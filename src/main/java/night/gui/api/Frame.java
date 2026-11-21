@@ -18,6 +18,7 @@ import night.gui.ClickGuiScreen;
 import night.gui.api.Button;
 import night.gui.api.ExpandableRow;
 import night.gui.impl.ModuleButton;
+import night.gui.impl.PingBypassButton;
 import night.gui.impl.WhitelistButton;
 import night.modules.Module;
 import night.modules.impl.core.ClickGuiModule;
@@ -57,7 +58,10 @@ public class Frame {
         this.width = width;
         this.height = height;
         for (Module module : Night.MODULE_MANAGER.getModules(category)) {
-            if (module instanceof PingBypassModule) continue;
+            if (module instanceof PingBypassModule) {
+                this.buttons.add(new PingBypassButton((PingBypassModule)module, this, height));
+                continue;
+            }
             this.buttons.add(new ModuleButton(module, this, height));
         }
     }
