@@ -1,5 +1,5 @@
 # Night 26.2 — kompletny opis ustawień
-Dokument wygenerowany automatycznie z kodu źródłowego (`src/main/java/night/modules`). Zawiera **149 modułów** i **1543 ustawień**.
+Dokument wygenerowany automatycznie z kodu źródłowego (`src/main/java/night/modules`). Zawiera **149 modułów** i **1544 ustawień**.
 ## Jak czytać tabele
 - **Ustawienie** — nazwa widoczna w GUI i używana w komendach (`<module> <setting> <value>`).
 - **Typ** — klasa ustawienia: `Boolean` (przełącznik), `Number` (suwak/liczba), `Mode` (lista wyboru), `String` (tekst), `Color` (kolor), `Bind` (klawisz), `Whitelist` (lista bloków/itemów), `Image`, `Position`, `Category` (nagłówek grupy).
@@ -886,7 +886,8 @@ Plik: `night/modules/impl/core/FakeSydneyModule.java`
 
 | Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
 |---|---|---|---|---|---|---|
-| `Colors` | Boolean | true |  |  |  | Uses Sydney's default accent color for the whole client. |
+| `Colors` | Boolean | true |  |  |  | Uses Sydney's default accent color for the HUD elements. |
+| `ClickGui` | Boolean | true |  |  |  | Recolors the ClickGUI, HUD editor and main menu accents to Sydney's color. |
 | `Watermark` | Boolean | true |  |  |  | Renames the HUD watermark to Sydney and hides its logo. |
 | `Welcomer` | Boolean | true |  |  |  | Uses Sydney's default welcomer message. |
 | `ChatPrefix` | Boolean | true |  |  |  | Renames the chat prefix from Night to Sydney. |
@@ -2748,4 +2749,4 @@ Plik: `night/modules/impl/visuals/VoidESPModule.java`
 
 ---
 
-Liczba modułów: **149**, liczba ustawień: **1543**.
+Liczba modułów: **149**, liczba ustawień: **1544**.

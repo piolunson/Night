@@ -23,14 +23,17 @@ extends Module {
     private static final Color SYDNEY_COLOR = new Color(130, 202, 255);
     private static final String SYDNEY_WELCOMER = "Hello, [username]! :^)";
     private static String versionOverride;
+    private static boolean active;
 
-    public BooleanSetting colors = new BooleanSetting("Colors", "Uses Sydney's default accent color for the whole client.", true);
+    public BooleanSetting colors = new BooleanSetting("Colors", "Uses Sydney's default accent color for the HUD elements.", true);
+    public BooleanSetting clickGui = new BooleanSetting("ClickGui", "Recolors the ClickGUI, HUD editor and main menu accents to Sydney's color.", true);
     public BooleanSetting watermark = new BooleanSetting("Watermark", "Renames the HUD watermark to Sydney and hides its logo.", true);
     public BooleanSetting welcomer = new BooleanSetting("Welcomer", "Uses Sydney's default welcomer message.", true);
     public BooleanSetting chatPrefix = new BooleanSetting("ChatPrefix", "Renames the chat prefix from Night to Sydney.", true);
     public StringSetting version = new StringSetting("Version", "The version rendered after the Sydney watermark.", "1.4.7");
 
     private ColorSetting.Color previousColor;
+    private ColorSetting.Color previousClickGuiColor;
     private String previousChatWatermark;
     private String previousHudWatermark;
     private String previousWelcomerText;
@@ -41,18 +44,31 @@ extends Module {
         return versionOverride;
     }
 
+    public static boolean isActive() {
+        return active;
+    }
+
     @Override
     public void onEnable() {
         if (Night.MODULE_MANAGER == null) {
             return;
         }
         versionOverride = this.version.getValue();
+        active = true;
 
         if (this.colors.getValue()) {
             ColorModule colorModule = Night.MODULE_MANAGER.getModule(ColorModule.class);
             if (colorModule != null) {
                 this.previousColor = colorModule.color.getValue();
                 colorModule.color.setValue(new ColorSetting.Color(SYDNEY_COLOR, false, false));
+            }
+        }
+
+        if (this.clickGui.getValue()) {
+            ClickGuiModule clickGuiModule = Night.MODULE_MANAGER.getModule(ClickGuiModule.class);
+            if (clickGuiModule != null) {
+                this.previousClickGuiColor = clickGuiModule.color.getValue();
+                clickGuiModule.color.setValue(new ColorSetting.Color(SYDNEY_COLOR, false, false));
             }
         }
 
@@ -85,6 +101,7 @@ extends Module {
     @Override
     public void onDisable() {
         versionOverride = null;
+        active = false;
         if (Night.MODULE_MANAGER == null) {
             return;
         }
@@ -107,6 +124,12 @@ extends Module {
         if (commandsModule != null && this.previousChatWatermark != null) {
             commandsModule.watermarkText.setValue(this.previousChatWatermark);
             this.previousChatWatermark = null;
+        }
+
+        ClickGuiModule clickGuiModule = Night.MODULE_MANAGER.getModule(ClickGuiModule.class);
+        if (clickGuiModule != null && this.previousClickGuiColor != null) {
+            clickGuiModule.color.setValue(this.previousClickGuiColor);
+            this.previousClickGuiColor = null;
         }
 
         ColorModule colorModule = Night.MODULE_MANAGER.getModule(ColorModule.class);
