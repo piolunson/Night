@@ -77,7 +77,7 @@ Night is a cheat/utility client: it modifies movement, rotations and player acti
 | File | SHA-256 |
 |---|---|
 | `Night-src_out-build-26.2.zip` (original) | `041c9bb559e0761fe959d9e67523d51bcb260998c650af2dc900d709cdf670a4` |
-| `night-26.2-a2cff6c.jar` (this build) | `1777d5665b2df32b05e4e997815d23c3423f7554b88fadadf493a19e5063f4fa` |
-| `night-26.2-a2cff6c-sources.jar` | `c1c6cf9a30560a510b64676b8e81ea60105cd55f8a08191c6daed5af2969eef4` |
+| `night-26.2-afb8f09.jar` (this build) | `bb696fa0ded18818ae6de00fd64abc1ce989bf0d6586225f66bd029f91939872` |
+| `night-26.2-afb8f09-sources.jar` | `ae88e7c5bed01c36411151e721ce61a391ed0e7e391c214e376a558af08f3fd3` |
 
 The build is reproducible: both archives use fixed timestamps and sorted entries, and the file name contains the commit (`night-26.2-<hash>.jar`). The same commit produces identical checksums — verify them with another `./gradlew build` and `build/libs/SHA256SUMS.txt`.
