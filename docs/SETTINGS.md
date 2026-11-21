@@ -1,5 +1,5 @@
 # Night 26.2 — kompletny opis ustawień
-Dokument wygenerowany automatycznie z kodu źródłowego (`src/main/java/night/modules`). Zawiera **148 modułów** i **1538 ustawień**.
+Dokument wygenerowany automatycznie z kodu źródłowego (`src/main/java/night/modules`). Zawiera **149 modułów** i **1543 ustawień**.
 ## Jak czytać tabele
 - **Ustawienie** — nazwa widoczna w GUI i używana w komendach (`<module> <setting> <value>`).
 - **Typ** — klasa ustawienia: `Boolean` (przełącznik), `Number` (suwak/liczba), `Mode` (lista wyboru), `String` (tekst), `Color` (kolor), `Bind` (klawisz), `Whitelist` (lista bloków/itemów), `Image`, `Position`, `Category` (nagłówek grupy).
@@ -815,7 +815,7 @@ Plik: `night/modules/impl/combat/SurroundModule.java`
 | `TickShiftToggle` | Boolean | false |  |  |  | Toggles the TickShift module when you surround. |
 | `Render` | Boolean | true |  |  |  | Whether or not to render the place position. |
 
-## Kategoria: CORE (17 modułów)
+## Kategoria: CORE (18 modułów)
 
 ### Capes
 Applies the Night cape to yourself and to other users.
@@ -878,6 +878,19 @@ Plik: `night/modules/impl/core/CommandsModule.java`
 | `Message` | Category |  |  |  |  | The category that contains all of the settings for the chat messages themselves. |
 | `PrimaryMessageColor` | Mode | Client |  |  | Primary | The primary color for the message. |
 | `SecondaryMessageColor` | Mode | White |  |  | Secondary | The secondary color for the message. |
+
+### FakeSydney
+Makes the client's HUD and colors look like Sydney Legacy.
+
+Plik: `night/modules/impl/core/FakeSydneyModule.java`
+
+| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+|---|---|---|---|---|---|---|
+| `Colors` | Boolean | true |  |  |  | Uses Sydney's default accent color for the whole client. |
+| `Watermark` | Boolean | true |  |  |  | Renames the HUD watermark to Sydney and hides its logo. |
+| `Welcomer` | Boolean | true |  |  |  | Uses Sydney's default welcomer message. |
+| `ChatPrefix` | Boolean | true |  |  |  | Renames the chat prefix from Night to Sydney. |
+| `Version` | String | 1.4.7 |  |  |  | The version rendered after the Sydney watermark. |
 
 ### Font
 Manages the client and the game's font rendering.
@@ -2735,4 +2748,4 @@ Plik: `night/modules/impl/visuals/VoidESPModule.java`
 
 ---
 
-Liczba modułów: **148**, liczba ustawień: **1538**.
+Liczba modułów: **149**, liczba ustawień: **1543**.

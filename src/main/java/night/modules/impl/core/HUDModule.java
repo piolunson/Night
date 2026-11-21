@@ -397,7 +397,7 @@ extends Module {
             int width = 0;
             int lines = 0;
             if (this.watermark.getValue()) {
-                String displayVersion = BuildConstants.MOD_VERSION;
+                String displayVersion = FakeSydneyModule.getVersionOverride() != null ? FakeSydneyModule.getVersionOverride() : BuildConstants.MOD_VERSION;
                 String revisionSegment = !this.watermarkVersion.getValue() ? "" : (!this.watermarkVersionMode.getValue().equals("GitHash") ? "-nightly " + String.valueOf(ChatFormatting.GRAY) + "(" + BuildConstants.BUILD_DATE + ")" : "+" + BuildConstants.GIT_REVISION + "." + BuildConstants.GIT_HASH);
                 String text = this.watermarkText.getValue() + (String)(this.watermarkVersion.getValue() ? String.valueOf(this.watermarkSync.getValue() ? "" : (this.inversion.getValue() ? ChatFormatting.GRAY : ChatFormatting.WHITE)) + " " + displayVersion + (this.watermarkMinecraftVersion.getValue() ? "-mc" + BuildConstants.MINECRAFT_VERSION : "") + revisionSegment : "");
                 float textX = 2.0f;
