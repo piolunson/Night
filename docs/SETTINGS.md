@@ -1,21 +1,21 @@
-# Night 26.2 — kompletny opis ustawień
-Dokument wygenerowany automatycznie z kodu źródłowego (`src/main/java/night/modules`). Zawiera **149 modułów** i **1544 ustawień**.
-## Jak czytać tabele
-- **Ustawienie** — nazwa widoczna w GUI i używana w komendach (`<module> <setting> <value>`).
-- **Typ** — klasa ustawienia: `Boolean` (przełącznik), `Number` (suwak/liczba), `Mode` (lista wyboru), `String` (tekst), `Color` (kolor), `Bind` (klawisz), `Whitelist` (lista bloków/itemów), `Image`, `Position`, `Category` (nagłówek grupy).
-- **Domyślnie** — wartość startowa.
-- **Zakres / opcje** — dopuszczalny zakres liczbowy lub lista dostępnych wartości.
-- **Grupa** — ustawienie widoczne tylko gdy wskazane ustawienie przyjmuje podane wartości.
-- **Tag** — krótka etykieta wyświetlana w GUI obok nazwy.
+# Night 26.2 — complete settings reference
+Generated automatically from the sources (`src/main/java/night/modules`). Covers **149 modules** and **1547 settings**.
+## How to read the tables
+- **Setting** — the name shown in the GUI and used in commands (`<module> <setting> <value>`).
+- **Type** — setting class: `Boolean` (toggle), `Number` (slider/number), `Mode` (choice list), `String` (text), `Color`, `Bind` (key), `Whitelist` (block/item list), `Image`, `Position`, `Category` (group header).
+- **Default** — the starting value.
+- **Range / options** — the allowed numeric range or the list of available values.
+- **Group** — the setting is only visible while the referenced setting has one of the listed values.
+- **Tag** — a short label rendered next to the name in the GUI.
 
-## Kategoria: COMBAT (32 modułów)
+## Category: COMBAT (32 modules)
 
 ### AntiPhase
 Places a climbable block (Scaffolding, Ladder, Vines) directly at a target enemy's feet.
 
-Plik: `night/modules/impl/combat/AntiPhaseModule.java`
+File: `night/modules/impl/combat/AntiPhaseModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Block` | Mode | Scaffolding | Scaffolding, Ladder, Vines |  |  | The item placed at the enemy's feet. |
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to the selected item. |
@@ -30,9 +30,9 @@ Plik: `night/modules/impl/combat/AntiPhaseModule.java`
 ### AutoArmor
 Automatically equips the best armor.
 
-Plik: `night/modules/impl/combat/AutoArmorModule.java`
+File: `night/modules/impl/combat/AutoArmorModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Health` | Mode | Highest | Highest, Lowest, Any |  |  | The health priority to apply. |
 | `ElytraPriority` | Boolean | true |  |  |  | Prioritizes elytra over armor pieces. |
@@ -50,18 +50,18 @@ Plik: `night/modules/impl/combat/AutoArmorModule.java`
 ### AutoBowRelease
 Automatically releases your bow after a certain amount of time has passed.
 
-Plik: `night/modules/impl/combat/AutoBowReleaseModule.java`
+File: `night/modules/impl/combat/AutoBowReleaseModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Ticks` | Number | 3 | 0 – 20 |  |  | The number of ticks that have to be waited for before releasing the bow. |
 
 ### AutoCrystal
 Automatically places and attacks crystals to annihilate your opponents.
 
-Plik: `night/modules/impl/combat/AutoCrystalModule.java`
+File: `night/modules/impl/combat/AutoCrystalModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Attack` | Category |  |  |  |  | The category for settings related to attacking crystals. |
 | `Attack` | Boolean | true |  |  | Enabled | Automatically attacks crystals that are deemed safe. |
@@ -167,9 +167,9 @@ Plik: `night/modules/impl/combat/AutoCrystalModule.java`
 ### AutoLog
 Logs out automatically to avoid dying.
 
-Plik: `night/modules/impl/combat/AutoLogModule.java`
+File: `night/modules/impl/combat/AutoLogModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `HealthCheck` | Boolean | false |  |  |  | Checks if you are at a specific health to log out. |
 | `Health` | Number | 10 | 0 – 20 | healthCheck = true |  | The health the player must be at to log out. |
@@ -180,9 +180,9 @@ Plik: `night/modules/impl/combat/AutoLogModule.java`
 ### AutoMace
 Elytra-boosts above the target, free-falls in, and mace-smashes on repeat.
 
-Plik: `night/modules/impl/combat/AutoMaceModule.java`
+File: `night/modules/impl/combat/AutoMaceModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number | 20.0 | 5.0 – 50.0 |  |  | Search radius to find a target. |
 | `MinHeight` | Number | 15.0 | 3.0 – 30.0 |  |  | Vertical height above the target to reach before diving. |
@@ -208,9 +208,9 @@ Plik: `night/modules/impl/combat/AutoMaceModule.java`
 ### AutoMine
 Manages which blocks SpeedMine should mine to defeat your opponents.
 
-Plik: `night/modules/impl/combat/AutoMineModule.java`
+File: `night/modules/impl/combat/AutoMineModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Priority` | Mode | Leg | Leg, Head |  |  | Which area of the target to prioritize mining. |
 | `Logic` | Mode | Grim | Grim, NCP |  |  | Auto mining targeting logic. |
@@ -228,9 +228,9 @@ Plik: `night/modules/impl/combat/AutoMineModule.java`
 ### AutoPot
 Throws a splash potion under/above you to keep whitelisted potions' effects topped up.
 
-Plik: `night/modules/impl/combat/AutoPotModule.java`
+File: `night/modules/impl/combat/AutoPotModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | WhiteList | WhiteList, BlackList |  |  | WhiteList = keep these potions' effects topped up. BlackList = keep every potion's effects topped up except these. |
 | `Whitelist` | Whitelist | WhitelistSetting.Type.POTIONS |  |  |  | Potions this mode's WhiteList/BlackList compares against. |
@@ -246,9 +246,9 @@ Plik: `night/modules/impl/combat/AutoPotModule.java`
 ### AutoTotem
 Automatically puts a specified item in your offhand slot.
 
-Plik: `night/modules/impl/combat/AutoTotemModule.java`
+File: `night/modules/impl/combat/AutoTotemModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Item` | Mode | Totem | Totem, Crystal, Gapple |  |  | The item that will be placed in your offhand slot when safety conditions are met. |
 | `Health` | Number | 16 | 0 – 36 | item = Crystal, Gapple |  | The health at which a totem will be prioritized. |
@@ -269,9 +269,9 @@ Plik: `night/modules/impl/combat/AutoTotemModule.java`
 ### AutoTrap
 Automatically places blocks around you to prevent other people from getting inside your hole.
 
-Plik: `night/modules/impl/combat/AutoTrapModule.java`
+File: `night/modules/impl/combat/AutoTrapModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Mode` | Mode | Full | Partial, Full |  |  | The offsets that will be used when trapping. |
@@ -303,9 +303,9 @@ Plik: `night/modules/impl/combat/AutoTrapModule.java`
 ### AutoWeb
 Automatically places webs on other people's feet.
 
-Plik: `night/modules/impl/combat/AutoWebModule.java`
+File: `night/modules/impl/combat/AutoWebModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Asynchronous` | Boolean | true |  |  |  | Performs calculations on separate threads. |
@@ -325,9 +325,9 @@ Plik: `night/modules/impl/combat/AutoWebModule.java`
 ### BedAura
 Automatically places and detonates beds in the Nether and End.
 
-Plik: `night/modules/impl/combat/BedAuraModule.java`
+File: `night/modules/impl/combat/BedAuraModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Targeting` | Category |  |  |  |  | Settings related to target selection. |
 | `Target` | Mode | Closest | Closest, Furthest, Health |  | Mode | How targets are sorted. |
@@ -367,9 +367,9 @@ Plik: `night/modules/impl/combat/BedAuraModule.java`
 ### Blocker
 Places blocks to stop enemies from placing crystals.
 
-Plik: `night/modules/impl/combat/BlockerModule.java`
+File: `night/modules/impl/combat/BlockerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Asynchronous` | Boolean | true |  |  |  | Performs calculations on separate threads. |
@@ -387,9 +387,9 @@ Plik: `night/modules/impl/combat/BlockerModule.java`
 ### CombatPlace
 Automatically places blocks in front of moving targets to block them.
 
-Plik: `night/modules/impl/combat/CombatPlace.java`
+File: `night/modules/impl/combat/CombatPlace.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Flatten` | Boolean | true |  |  |  | Place blocks under the target. |
 | `Mode` | Mode | Two | None, One, Two, Three |  |  | Prediction mode. |
@@ -407,9 +407,9 @@ Plik: `night/modules/impl/combat/CombatPlace.java`
 ### Criticals
 Changes player movement for always landing critical hits.
 
-Plik: `night/modules/impl/combat/CriticalsModule.java`
+File: `night/modules/impl/combat/CriticalsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Packet | Packet, Grim, GrimNew |  |  | The method that will be used to achieve critical hits. |
 | `OnlyPhased` | Boolean | true |  | mode = Grim, GrimNew |  | Only crits when you are phased into blocks. |
@@ -419,9 +419,9 @@ Plik: `night/modules/impl/combat/CriticalsModule.java`
 ### HoleFill
 Automatically places blocks inside of holes to prevent others from getting inside of them.
 
-Plik: `night/modules/impl/combat/HoleFillModule.java`
+File: `night/modules/impl/combat/HoleFillModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Mode` | Mode | Normal | Normal, Smart |  |  | The offsets that will be used when trapping. |
@@ -454,9 +454,9 @@ Plik: `night/modules/impl/combat/HoleFillModule.java`
 ### KillAura
 Automatically attacks optimal targets using Nami's combat engine.
 
-Plik: `night/modules/impl/combat/KillAuraModule.java`
+File: `night/modules/impl/combat/KillAuraModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number | 3.0 | 1.0 – 6.0 |  |  | The reach distance to entities. |
 | `StanceAbuse` | Boolean | false |  |  |  | Abuses Grim stance eye positions to optimize reach. |
@@ -485,9 +485,9 @@ Plik: `night/modules/impl/combat/KillAuraModule.java`
 ### KillSay
 Automatically sends a message when you kill someone.
 
-Plik: `night/modules/impl/combat/KillSayModule.java`
+File: `night/modules/impl/combat/KillSayModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Kills` | Boolean | true |  |  |  | Sends a message when you kill someone. |
 | `Pops` | Boolean | false |  |  |  | Sends a message when you pop someone. |
@@ -503,9 +503,9 @@ Plik: `night/modules/impl/combat/KillSayModule.java`
 ### MaceSpoof
 Spoof fall height for mace damage.
 
-Plik: `night/modules/impl/combat/MaceSpoofModule.java`
+File: `night/modules/impl/combat/MaceSpoofModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Vanilla | Vanilla, NCP, Swap |  |  | Mode of spoofing. |
 | `NoCrystal` | Boolean | true |  | mode = Swap |  | Don't apply on crystal attack. |
@@ -516,9 +516,9 @@ Plik: `night/modules/impl/combat/MaceSpoofModule.java`
 ### Mainhand
 Automatically manages totems and golden apples in your mainhand.
 
-Plik: `night/modules/impl/combat/MainhandModule.java`
+File: `night/modules/impl/combat/MainhandModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Slot` | Number | 1 | 1 – 9 |  |  | The hotbar slot (1-9) to keep a totem in. |
 | `Delay` | Number | 0 | 0 – 2000 |  |  | Delay (ms) before refilling a totem to hotbar. |
@@ -533,9 +533,9 @@ Plik: `night/modules/impl/combat/MainhandModule.java`
 ### ObsidianFarmer
 Places and mines ender chests using SpeedMine.
 
-Plik: `night/modules/impl/combat/ObsidianFarmerModule.java`
+File: `night/modules/impl/combat/ObsidianFarmerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Rotate` | Mode | Grim | None, Normal, Grim |  |  | The rotation mode when placing and mining blocks. |
@@ -558,9 +558,9 @@ Plik: `night/modules/impl/combat/ObsidianFarmerModule.java`
 ### OpponentScaffold
 Automatically places blocks under non-friended players to prevent them from falling.
 
-Plik: `night/modules/impl/combat/OpponentScaffold.java`
+File: `night/modules/impl/combat/OpponentScaffold.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Asynchronous` | Boolean | true |  |  |  | Performs calculations on separate threads. |
@@ -581,9 +581,9 @@ Plik: `night/modules/impl/combat/OpponentScaffold.java`
 ### PearlCatcher
 Places obsidian in the air to stop players pearls from reaching their destination.
 
-Plik: `night/modules/impl/combat/PearlCatcher.java`
+File: `night/modules/impl/combat/PearlCatcher.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Rotate` | Boolean | true |  |  |  | Sends a packet rotation whenever placing a block. |
@@ -598,9 +598,9 @@ Plik: `night/modules/impl/combat/PearlCatcher.java`
 ### PearlChase
 Automatically throws an Ender Pearl to chase enemy pearl throws with trajectory prediction and obstacle avoidance.
 
-Plik: `night/modules/impl/combat/PearlChaseModule.java`
+File: `night/modules/impl/combat/PearlChaseModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Target` | Mode | Nearest | Lowest, Furthest, Nearest |  |  | Priority used to select which enemy to chase. |
 | `IgnoreNaked` | Boolean | false |  |  |  | Ignore naked players, even if wearing only elytra. |
@@ -620,9 +620,9 @@ Plik: `night/modules/impl/combat/PearlChaseModule.java`
 ### PistonCrystal
 Places piston + redstone to push a crystal into targets.
 
-Plik: `night/modules/impl/combat/PistonCrystalModule.java`
+File: `night/modules/impl/combat/PistonCrystalModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `MinDamage` | Number |  |  |  |  | Minimum damage to attempt a sequence |
 | `MaxLocalDamage` | Number |  |  |  |  | Max self-damage allowed |
@@ -650,9 +650,9 @@ Plik: `night/modules/impl/combat/PistonCrystalModule.java`
 ### PistonKick
 Pushes players out of holes or solid blocks using pistons.
 
-Plik: `night/modules/impl/combat/PistonKickModule.java`
+File: `night/modules/impl/combat/PistonKickModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Delay` | Number | 1 | 0 – 10 |  |  | Delay between pushes (ticks) |
 | `PushDelay` | Number | 150 | 50 – 500 |  |  | Duration to hold piston extended before retracting (ms) |
@@ -677,9 +677,9 @@ Plik: `night/modules/impl/combat/PistonKickModule.java`
 ### SelfBow
 Automatically shoots arrows at you in order to give yourself potion effects.
 
-Plik: `night/modules/impl/combat/SelfBowModule.java`
+File: `night/modules/impl/combat/SelfBowModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Manual` | Boolean | false |  |  |  | Whether or not to do the self bow manually. |
 | `Switch` | Mode | Normal | None, Normal |  |  | The mode that will be used for switching slots. |
@@ -689,9 +689,9 @@ Plik: `night/modules/impl/combat/SelfBowModule.java`
 ### SelfFill
 Automatically places a block in the spot that you were previously in.
 
-Plik: `night/modules/impl/combat/SelfFillModule.java`
+File: `night/modules/impl/combat/SelfFillModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `JumpMode` | Mode | Normal | Normal, Packet |  |  | The mode that will be used for jumping. |
@@ -705,9 +705,9 @@ Plik: `night/modules/impl/combat/SelfFillModule.java`
 ### SelfTrap
 Automatically places blocks around you to prevent other people from getting inside your hole.
 
-Plik: `night/modules/impl/combat/SelfTrapModule.java`
+File: `night/modules/impl/combat/SelfTrapModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Mode` | Mode | Partial | Partial, Full |  |  | The offsets that will be used when trapping. |
@@ -735,9 +735,9 @@ Plik: `night/modules/impl/combat/SelfTrapModule.java`
 ### SpearKill
 Lunges at players and attacks with a spear/trident.
 
-Plik: `night/modules/impl/combat/SpearKillModule.java`
+File: `night/modules/impl/combat/SpearKillModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number |  |  |  |  | Range to search for players. |
 | `WallRange` | Number |  |  |  |  | Range to search through walls. |
@@ -761,9 +761,9 @@ Plik: `night/modules/impl/combat/SpearKillModule.java`
 ### Suicide
 Makes all of the combat modules target you so that you die.
 
-Plik: `night/modules/impl/combat/SuicideModule.java`
+File: `night/modules/impl/combat/SuicideModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `OffhandOverride` | Boolean | true |  |  |  | Changes the target offhand item in order to make it easier to die. |
 | `DeathDisable` | Boolean | true |  |  |  | Disables the module once you have died. |
@@ -772,9 +772,9 @@ Plik: `night/modules/impl/combat/SuicideModule.java`
 ### Surround
 Automatically places blocks at your feet to prevent crystal damage.
 
-Plik: `night/modules/impl/combat/SurroundModule.java`
+File: `night/modules/impl/combat/SurroundModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to necessary items. |
 | `Timing` | Mode | Sequential | Vanilla, Sequential |  |  | The timing that will be used in replacing broken surround blocks. |
@@ -815,21 +815,25 @@ Plik: `night/modules/impl/combat/SurroundModule.java`
 | `TickShiftToggle` | Boolean | false |  |  |  | Toggles the TickShift module when you surround. |
 | `Render` | Boolean | true |  |  |  | Whether or not to render the place position. |
 
-## Kategoria: CORE (18 modułów)
+## Category: CORE (18 modules)
 
 ### Capes
-Applies the Night cape to yourself and to other users.
+Gives you a Night cape: pick a design, mirror it on other players or wear it on your elytra.
 
-Plik: `night/modules/impl/core/CapesModule.java`
+File: `night/modules/impl/core/CapesModule.java`
 
-_Moduł nie posiada własnych ustawień._
+| Setting | Type | Default | Range / options | Group | Tag | Description |
+|---|---|---|---|---|---|---|
+| `Cape` | Mode | Night |  |  |  | Cape design applied to your skin. |
+| `Elytra` | Boolean | false |  |  |  | Wears the cape design on your elytra as well. |
+| `Others` | Boolean | false |  |  |  | Shows the cape on every other player too (client-side only). |
 
 ### ClickGui
 Allows you to change and interact with the client's modules and settings through a GUI.
 
-Plik: `night/modules/impl/core/ClickGuiModule.java`
+File: `night/modules/impl/core/ClickGuiModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Sounds` | Boolean | true |  |  |  | Plays Minecraft UI sounds when interacting with the client's GUI. |
 | `Blur` | Boolean | true |  |  |  | Whether or not to blur the background behind the GUI. |
@@ -850,9 +854,9 @@ Plik: `night/modules/impl/core/ClickGuiModule.java`
 ### Color
 Manages the client's global color system.
 
-Plik: `night/modules/impl/core/ColorModule.java`
+File: `night/modules/impl/core/ColorModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Color` | Color | ColorSetting.Color(Color(160, 120, 255), false, false) |  |  |  | The global color that is used in sync and in most of the elements. |
 | `Rainbow` | Category |  |  |  |  | The category containing all settings related to rainbow coloring. |
@@ -864,9 +868,9 @@ Plik: `night/modules/impl/core/ColorModule.java`
 ### Commands
 Manages the client's command and chat message system.
 
-Plik: `night/modules/impl/core/CommandsModule.java`
+File: `night/modules/impl/core/CommandsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Watermark` | Category |  |  |  |  | The category that contains all of the settings for the chat watermark. |
 | `Watermark` | Boolean | true |  |  | Enabled | Whether or not to have the client's watermark show up before every chat message. |
@@ -882,9 +886,9 @@ Plik: `night/modules/impl/core/CommandsModule.java`
 ### FakeSydney
 Makes the client's HUD and colors look like Sydney Legacy.
 
-Plik: `night/modules/impl/core/FakeSydneyModule.java`
+File: `night/modules/impl/core/FakeSydneyModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Colors` | Boolean | true |  |  |  | Uses Sydney's default accent color for the HUD elements. |
 | `ClickGui` | Boolean | true |  |  |  | Recolors the ClickGUI, HUD editor and main menu accents to Sydney's color. |
@@ -896,9 +900,9 @@ Plik: `night/modules/impl/core/FakeSydneyModule.java`
 ### Font
 Manages the client and the game's font rendering.
 
-Plik: `night/modules/impl/core/FontModule.java`
+File: `night/modules/impl/core/FontModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `CustomFont` | Category |  |  |  |  | The category for settings relating to custom fonts. |
 | `CustomFont` | Boolean | false |  |  | Enabled | Enables custom font rendering. |
@@ -919,9 +923,9 @@ Plik: `night/modules/impl/core/FontModule.java`
 ### Friend
 Allows you to manage the client's friend system.
 
-Plik: `night/modules/impl/core/FriendModule.java`
+File: `night/modules/impl/core/FriendModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `MiddleClick` | Boolean | true |  |  |  | Adds whichever entity you middle click to your friends list. |
 | `FriendlyFire` | Boolean | false |  |  |  | Disables the friend system and allows the attacking of friends. |
@@ -931,9 +935,9 @@ Plik: `night/modules/impl/core/FriendModule.java`
 ### HUD
 Renders information about the game and the client on the screen.
 
-Plik: `night/modules/impl/core/HUDModule.java`
+File: `night/modules/impl/core/HUDModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Watermark` | Category |  |  |  |  | The settings for the client's watermark. |
 | `Watermark` | Boolean | true |  |  | Enabled | Renders the client's name and version at the top left. |
@@ -1044,16 +1048,16 @@ Plik: `night/modules/impl/core/HUDModule.java`
 ### HUDEditor
 Lets you drag-and-drop and toggle individual HUD elements directly on screen.
 
-Plik: `night/modules/impl/core/HUDEditorModule.java`
+File: `night/modules/impl/core/HUDEditorModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
 ### IRC
 Internet Relay Chat with other Night Client users.
 
-Plik: `night/modules/impl/core/IRCModule.java`
+File: `night/modules/impl/core/IRCModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Prefix` | String | $ |  |  |  | The prefix character for IRC messages in chat. |
 | `ShowPrefix` | Boolean | true |  |  |  | Show [Night] tag on IRC messages. |
@@ -1064,16 +1068,16 @@ Plik: `night/modules/impl/core/IRCModule.java`
 ### IgnoreNaked
 Ignore Naked, even that player wears elytra only
 
-Plik: `night/modules/impl/core/IgnoreNakedModule.java`
+File: `night/modules/impl/core/IgnoreNakedModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
 ### Menu
 Replaces the default title screen with the client's custom main menu screen.
 
-Plik: `night/modules/impl/core/MenuModule.java`
+File: `night/modules/impl/core/MenuModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `MainMenu` | Category |  |  |  |  | The category for settings related to the main menu. |
 | `MainMenu` | Boolean | true |  |  | Enabled | Replaces Minecraft's default main menu with a customizable one. |
@@ -1081,16 +1085,16 @@ Plik: `night/modules/impl/core/MenuModule.java`
 ### NoMiddleClick
 Prevents middle clicking from picking blocks into your hand.
 
-Plik: `night/modules/impl/core/NoMiddleClickModule.java`
+File: `night/modules/impl/core/NoMiddleClickModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
 ### Patch
 Server/anticheat-specific hotfixes.
 
-Plik: `night/modules/impl/core/PatchModule.java`
+File: `night/modules/impl/core/PatchModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `GrimAttackVelocity` | Boolean | false |  |  |  | Stops your own sprint and movement from being cut after landing extra knockback on a hit. |
 | `SilentSwapFix` | Boolean | true |  |  |  | Stops hotbar slot desync and ghost item duplication during silent switch. |
@@ -1098,9 +1102,9 @@ Plik: `night/modules/impl/core/PatchModule.java`
 ### PingBypass
 Connects to a PingBypass proxy server for low-latency combat.
 
-Plik: `night/modules/impl/core/PingBypassModule.java`
+File: `night/modules/impl/core/PingBypassModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `IP` | String | 127.0.0.1 |  |  |  | The IP address of the PingBypass proxy server. |
 | `Port` | Number | 25565 | 1 – 65535 |  |  | The port of the PingBypass proxy server. |
@@ -1110,9 +1114,9 @@ Plik: `night/modules/impl/core/PingBypassModule.java`
 ### RPC
 Enables Discord Rich Presence for the client.
 
-Plik: `night/modules/impl/core/RPCModule.java`
+File: `night/modules/impl/core/RPCModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `UUID` | Boolean | true |  |  |  | Whether or not to show your client UID on the Discord presence. |
 | `Details` | Mode | Random | Custom, Random |  |  | The mode for the discord presence details. |
@@ -1123,9 +1127,9 @@ Plik: `night/modules/impl/core/RPCModule.java`
 ### Renders
 Manages the client world renders.
 
-Plik: `night/modules/impl/core/RendersModule.java`
+File: `night/modules/impl/core/RendersModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Fade | Fade, Shrink |  |  | The mode for the place render. |
 | `Duration` | Number | 300 | 0 – 1000 |  |  | The duration for the place render. |
@@ -1136,22 +1140,22 @@ Plik: `night/modules/impl/core/RendersModule.java`
 ### Rotations
 Manages the client's rotation system.
 
-Plik: `night/modules/impl/core/RotationsModule.java`
+File: `night/modules/impl/core/RotationsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `MovementFix` | Boolean | false |  |  |  | Makes your movement in accordance with your yaw. |
 | `SnapBack` | Boolean | false |  |  |  | Reverts rotations to previous values after rotating. |
 | `Jitter` | Mode | None | None, Grim, Normal |  |  | Adds random noise to sent rotations so they're never bit-for-bit identical, defeating aim-consistency checks like Grim's AimModulo360. |
 
-## Kategoria: MISCELLANEOUS (22 modułów)
+## Category: MISCELLANEOUS (22 modules)
 
 ### Announcer
 Announces your actions in chat.
 
-Plik: `night/modules/impl/miscellaneous/AnnouncerModule.java`
+File: `night/modules/impl/miscellaneous/AnnouncerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Watermark` | String | Night |  |  |  | The client name that will be used in the announcer. |
 | `Language` | Mode | English | English, German, French, Japanese, Finnish, Russian, Spanish, Swedish, Turkish, Dutch, Greek, Chinese, Italian, Norwegian, Romanian, Czech, Portuguese, Slovenian, Polish, Korean, Lithuanian, Indonesian, Hungarian, Random |  |  | The language that will be used for the announcer. |
@@ -1166,9 +1170,9 @@ Plik: `night/modules/impl/miscellaneous/AnnouncerModule.java`
 ### AutoEscape
 Eats a chorus fruit to escape as soon as you get trapped on all sides.
 
-Plik: `night/modules/impl/miscellaneous/AutoEscapeModule.java`
+File: `night/modules/impl/miscellaneous/AutoEscapeModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `SwapBack` | Boolean | true |  |  |  | Switches back to the item you were previously holding after eating the chorus fruit. |
 | `Cooldown` | Number | 1000 | 0 – 5000 |  |  | The amount of time that has to pass before escaping again. |
@@ -1177,34 +1181,34 @@ Plik: `night/modules/impl/miscellaneous/AutoEscapeModule.java`
 ### AutoLogin
 Automatically logs in on cracked servers.
 
-Plik: `night/modules/impl/miscellaneous/AutoLoginModule.java`
+File: `night/modules/impl/miscellaneous/AutoLoginModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Password` | String | password |  |  |  | The password to use when logging in. |
 
 ### AutoReconnect
 Automatically reconnects you to a server after a specified time period.
 
-Plik: `night/modules/impl/miscellaneous/AutoReconnectModule.java`
+File: `night/modules/impl/miscellaneous/AutoReconnectModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Delay` | Number | 5 | 0 – 20 |  |  | The amount of seconds that have to pass before reconnecting. |
 
 ### AutoRespawn
 Makes it so that you respawn immediately after dying.
 
-Plik: `night/modules/impl/miscellaneous/AutoRespawnModule.java`
+File: `night/modules/impl/miscellaneous/AutoRespawnModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
 ### BetterChat
 Improves the default minecraft chat.
 
-Plik: `night/modules/impl/miscellaneous/BetterChatModule.java`
+File: `night/modules/impl/miscellaneous/BetterChatModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `NoIndicators` | Boolean | false |  |  |  | Removes indicators from the chat. |
 | `Offset` | Number | 0 | -100 – 100 |  |  | The offset for the chat on the X axis. |
@@ -1223,9 +1227,9 @@ Plik: `night/modules/impl/miscellaneous/BetterChatModule.java`
 ### ExtraTab
 Extends the size of the player list.
 
-Plik: `night/modules/impl/miscellaneous/ExtraTabModule.java`
+File: `night/modules/impl/miscellaneous/ExtraTabModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Limit` | Number | 1000 | 1 – 1000 |  |  | The maximum amount of players that will be listed. |
 | `Friends` | Boolean | true |  |  |  | Highlights your friends on the player list. |
@@ -1233,18 +1237,18 @@ Plik: `night/modules/impl/miscellaneous/ExtraTabModule.java`
 ### FOVModifier
 Gives you more customizability for the games FOV.
 
-Plik: `night/modules/impl/miscellaneous/FOVModifierModule.java`
+File: `night/modules/impl/miscellaneous/FOVModifierModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `FOV` | Number | 120 | 50 – 150 |  |  | The FOV you want to use. |
 
 ### FakePlayer
 Spawns in a fake player entity that you can use to test modules on.
 
-Plik: `night/modules/impl/miscellaneous/FakePlayerModule.java`
+File: `night/modules/impl/miscellaneous/FakePlayerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Name` | String | Dummy |  |  |  | The name that will be assigned to the fake player. |
 | `Health` | Number |  |  |  |  | The amount of health that will be assigned to the fake player. |
@@ -1258,9 +1262,9 @@ Plik: `night/modules/impl/miscellaneous/FakePlayerModule.java`
 ### FastLatency
 Makes ping resolving much faster.
 
-Plik: `night/modules/impl/miscellaneous/FastLatencyModule.java`
+File: `night/modules/impl/miscellaneous/FastLatencyModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Delay` | Number | 0 |  |  |  | The amount of milliseconds that have to be waited for before resolving your ping again. |
 | `SpikeNotifier` | Boolean | false |  |  |  | Notifies you in chat whenever your ping spikes. |
@@ -1269,18 +1273,18 @@ Plik: `night/modules/impl/miscellaneous/FastLatencyModule.java`
 ### Handshake
 Spoofs your client handshake to make the server think that you are playing on a different client.
 
-Plik: `night/modules/impl/miscellaneous/HandshakeModule.java`
+File: `night/modules/impl/miscellaneous/HandshakeModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Brand` | String | vanilla |  |  |  | The brand that the server will think you are playing on. |
 
 ### LagNotify
 Notifies you when you lag.
 
-Plik: `night/modules/impl/miscellaneous/LagNotifyModule.java`
+File: `night/modules/impl/miscellaneous/LagNotifyModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Server` | Boolean | true |  |  |  | Notifies you when the server stops responding. |
 | `Lagback` | Boolean | true |  |  |  | Notifies you when you lagback. |
@@ -1289,18 +1293,18 @@ Plik: `night/modules/impl/miscellaneous/LagNotifyModule.java`
 ### MouseFix
 Fixes multiple mouse issues.
 
-Plik: `night/modules/impl/miscellaneous/MouseFixModule.java`
+File: `night/modules/impl/miscellaneous/MouseFixModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `CustomDebounce` | Boolean | true |  |  |  | Implements a custom debounce timer on mouse inputs. |
 
 ### NoPacketKick
 Prevents you from being kicked from the server due to Netty, packet decoding, or codec exceptions.
 
-Plik: `night/modules/impl/miscellaneous/NoPacketKickModule.java`
+File: `night/modules/impl/miscellaneous/NoPacketKickModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `LogChat` | Boolean | true |  |  |  | Notifies you in chat when a corrupted or invalid packet is caught and suppressed. |
 | `LogConsole` | Boolean | true |  |  |  | Prints the full exception stacktrace to the console log. |
@@ -1309,9 +1313,9 @@ Plik: `night/modules/impl/miscellaneous/NoPacketKickModule.java`
 ### NoSoundLag
 Prevents lagging caused by a large amount of sounds being played.
 
-Plik: `night/modules/impl/miscellaneous/NoSoundLagModule.java`
+File: `night/modules/impl/miscellaneous/NoSoundLagModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Armor` | Boolean | true |  |  |  | Prevents lagging caused by armor sounds. |
 | `Withers` | Boolean | true |  |  |  | Prevents lagging caused by wither sounds. |
@@ -1322,9 +1326,9 @@ Plik: `night/modules/impl/miscellaneous/NoSoundLagModule.java`
 ### Notifications
 Notifies you in chat whenever something significant happens.
 
-Plik: `night/modules/impl/miscellaneous/NotificationsModule.java`
+File: `night/modules/impl/miscellaneous/NotificationsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `TotemPops` | Boolean | true |  |  |  | Notifies you in chat whenever a player pops a totem. |
 | `VisualRange` | Boolean | false |  |  |  | Notifies you in chat whenever a player enters your render distance. |
@@ -1333,9 +1337,9 @@ Plik: `night/modules/impl/miscellaneous/NotificationsModule.java`
 ### Scaffold
 Places blocks under the player to bridge automatically.
 
-Plik: `night/modules/impl/miscellaneous/ScaffoldModule.java`
+File: `night/modules/impl/miscellaneous/ScaffoldModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to blocks. |
 | `Range` | Number | 4.0 | 1.0 – 6.0 |  |  | Range to place blocks. |
@@ -1352,9 +1356,9 @@ Plik: `night/modules/impl/miscellaneous/ScaffoldModule.java`
 ### Screenshot
 Automatically copies screenshots to clipboard when pressing F2.
 
-Plik: `night/modules/impl/miscellaneous/ScreenshotModule.java`
+File: `night/modules/impl/miscellaneous/ScreenshotModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Clipboard` | Boolean | true |  |  |  | Copies screenshot image directly to your clipboard. |
 | `CopyFile` | Boolean | true |  |  |  | Also includes file flavor for pasting into file explorers. |
@@ -1364,16 +1368,16 @@ Plik: `night/modules/impl/miscellaneous/ScreenshotModule.java`
 ### ShulkerInfo
 Renders a preview of the contents of the shulker you are hovering.
 
-Plik: `night/modules/impl/miscellaneous/ShulkerInfoModule.java`
+File: `night/modules/impl/miscellaneous/ShulkerInfoModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
 ### Sounds
 Plays custom sounds when something happens. Put .wav files in .minecraft/Night/Client/
 
-Plik: `night/modules/impl/miscellaneous/SoundsModule.java`
+File: `night/modules/impl/miscellaneous/SoundsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Kills` | Category |  |  |  |  | The kills category for the sounds. |
 | `KillSound` | Boolean | true |  |  |  | Play sounds when you kill a player. |
@@ -1387,9 +1391,9 @@ Plik: `night/modules/impl/miscellaneous/SoundsModule.java`
 ### Spammer
 Spams messages in chat from a text file.
 
-Plik: `night/modules/impl/miscellaneous/SpammerModule.java`
+File: `night/modules/impl/miscellaneous/SpammerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `FileName` | String | spammer.txt |  |  |  | The name of the spammer text file. |
 | `Delay` | Number | 5 | 0 – 30 |  |  | The delay for the announcer. |
@@ -1399,9 +1403,9 @@ Plik: `night/modules/impl/miscellaneous/SpammerModule.java`
 ### Welcomer
 Sends a message when a player joins or leaves the server.
 
-Plik: `night/modules/impl/miscellaneous/WelcomerModule.java`
+File: `night/modules/impl/miscellaneous/WelcomerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Joins` | Boolean | true |  |  |  | Sends messages when a player joins the server |
 | `Leaves` | Boolean | true |  |  |  | Sends messages when a player leaves the server |
@@ -1410,14 +1414,14 @@ Plik: `night/modules/impl/miscellaneous/WelcomerModule.java`
 | `GreenText` | Boolean | false |  |  |  | Makes your message green. |
 | `Delay` | Number | 5 | 0 – 30 |  |  | The delay for the announcer. |
 
-## Kategoria: MOVEMENT (25 modułów)
+## Category: MOVEMENT (25 modules)
 
 ### Anchor
 Pulls you toward your nearest hole when looking down.
 
-Plik: `night/modules/impl/movement/Anchor.java`
+File: `night/modules/impl/movement/Anchor.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Pitch` | Number | 60 | 0 – 90 |  |  | Minimum pitch angle to activate anchoring. |
 | `Doubles` | Boolean | true |  |  |  | Include 2x1 holes when anchoring. |
@@ -1431,16 +1435,16 @@ Plik: `night/modules/impl/movement/Anchor.java`
 ### AntiVoid
 Prevents you from falling into the void.
 
-Plik: `night/modules/impl/movement/AntiVoidModule.java`
+File: `night/modules/impl/movement/AntiVoidModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
 ### ArrowControls
 Allows you to control the camera using your arrow keys.
 
-Plik: `night/modules/impl/movement/ArrowControlsModule.java`
+File: `night/modules/impl/movement/ArrowControlsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Speed` | Number |  |  |  |  | The speed at which the camera will be moving at. |
 | `Inventory` | Boolean | true |  |  |  | Allows you to control the camera when a screen is opened. |
@@ -1448,25 +1452,25 @@ Plik: `night/modules/impl/movement/ArrowControlsModule.java`
 ### AutoWalk
 Holds forward (or backward) movement every tick. Auto-pauses while Baritone is actively driving movement (e.g. EBounce+'s ObstaclePassing) so the two don't fight over input.
 
-Plik: `night/modules/impl/movement/AutoWalkModule.java`
+File: `night/modules/impl/movement/AutoWalkModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Backward` | Boolean | false |  |  |  | Walk backward instead of forward. |
 
 ### BounceDebug
 Prints ElytraFly Bounce speed/recast diagnostics to chat -- toggle independently of ElytraFly's own settings.
 
-Plik: `night/modules/impl/movement/ElytraBounceDebugModule.java`
+File: `night/modules/impl/movement/ElytraBounceDebugModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
 ### ElytraFly
 Allows you to fly using an elytra without fireworks.
 
-Plik: `night/modules/impl/movement/ElytraFlyModule.java`
+File: `night/modules/impl/movement/ElytraFlyModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | ControlRocket | Control, ControlRocket, Bounce |  |  | The mode that will be used for elytra flying. |
 | `Horizontal` | Number |  |  | mode = Control |  | The speed at which you will be flying horizontally. |
@@ -1496,9 +1500,9 @@ Plik: `night/modules/impl/movement/ElytraFlyModule.java`
 ### EntityControl
 Allows you to control and fly with ridden entities.
 
-Plik: `night/modules/impl/movement/EntityControlModule.java`
+File: `night/modules/impl/movement/EntityControlModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Fly` | Boolean | true |  |  |  | Allows you to fly with your vehicle. |
 | `Speed` | Number | 5.0 | 0.1 – 50.0 |  |  | Horizontal flying speed. |
@@ -1510,9 +1514,9 @@ Plik: `night/modules/impl/movement/EntityControlModule.java`
 ### FakeLag
 Chokes sent packets to look like you are lagging.
 
-Plik: `night/modules/impl/movement/FakeLagModule.java`
+File: `night/modules/impl/movement/FakeLagModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Choke` | Number | 2 | 1 – 5 |  |  | The delay to choke packets for. |
 | `OnlyOnHoleLeave` | Boolean | false |  |  |  | Only choke packets when leaving a hole. |
@@ -1524,18 +1528,18 @@ Plik: `night/modules/impl/movement/FakeLagModule.java`
 ### FastClimb
 Modifies your climbing speed on ladders, scaffolding, vines and other climbables.
 
-Plik: `night/modules/impl/movement/FastClimbModule.java`
+File: `night/modules/impl/movement/FastClimbModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Speed` | Number |  |  |  | Speed | How much of vanilla's climb speed to use. Ignore walks past climbables like normal blocks, 1 is vanilla's normal speed. |
 
 ### FastSwim
 Modifies your swim speed in water and lava.
 
-Plik: `night/modules/impl/movement/FastSwimModule.java`
+File: `night/modules/impl/movement/FastSwimModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `H-Water` | Number |  |  |  |  | Horizontal swim speed multiplier in water. |
 | `V-Water` | Number |  |  |  |  | Vertical (up/down) swim speed multiplier in water. |
@@ -1545,9 +1549,9 @@ Plik: `night/modules/impl/movement/FastSwimModule.java`
 ### FastWeb
 Allows you to move quickly through webs.
 
-Plik: `night/modules/impl/movement/FastWebModule.java`
+File: `night/modules/impl/movement/FastWebModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Normal | Normal, Ignore, Strong |  |  | The method that will be used to speed you through webs. |
 | `Speed` | Number | 3.0 | 0.1 – 10.0 | mode = Normal |  | The speed at which you will fall through webs. |
@@ -1559,9 +1563,9 @@ Plik: `night/modules/impl/movement/FastWebModule.java`
 ### HighJump
 Launches you upward when a shulker box next to you opens.
 
-Plik: `night/modules/impl/movement/HighJumpModule.java`
+File: `night/modules/impl/movement/HighJumpModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Strength` | Number | 5 | 0 – 5 |  | Strength | Launch power. 1 ~ 26 blocks, 3 ~ 104, 5 ~ 200. 0 = off. |
 | `Infinite` | Boolean | false |  |  |  | Hold space when the jump peaks to launch again with the same power. |
@@ -1569,9 +1573,9 @@ Plik: `night/modules/impl/movement/HighJumpModule.java`
 ### HitboxDesync
 Precisely offsets your position to glitch out Minecraft hitbox calculations.
 
-Plik: `night/modules/impl/movement/HitboxDesyncModule.java`
+File: `night/modules/impl/movement/HitboxDesyncModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Alternating` | Boolean | false |  |  |  | Modifies your position in such a way that it messes with other clients. |
 | `Minimal` | Boolean | false |  | alternating = true |  | Makes alternating minimal, only required on certain servers. |
@@ -1583,9 +1587,9 @@ Plik: `night/modules/impl/movement/HitboxDesyncModule.java`
 ### HoleSnap
 Pulls you toward your nearest hole.
 
-Plik: `night/modules/impl/movement/HoleSnapModule.java`
+File: `night/modules/impl/movement/HoleSnapModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number | 5 | 1 – 8 |  |  | Range for the holes. |
 | `DoubleHoles` | Boolean | true |  |  |  | Whether or not to snap you to double holes. |
@@ -1604,9 +1608,9 @@ Plik: `night/modules/impl/movement/HoleSnapModule.java`
 ### InventoryControl
 Allows you to control things such as movement and your camera while a GUI is open.
 
-Plik: `night/modules/impl/movement/InventoryControlModule.java`
+File: `night/modules/impl/movement/InventoryControlModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Movement` | Boolean | true |  |  |  | Allows you to control movement. |
 | `Portals` | Boolean | true |  |  |  | Allows you to interact with GUIs while inside of a portal. |
@@ -1616,27 +1620,27 @@ Plik: `night/modules/impl/movement/InventoryControlModule.java`
 ### NoFall
 Prevents you from taking fall damage.
 
-Plik: `night/modules/impl/movement/NoFallModule.java`
+File: `night/modules/impl/movement/NoFallModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Packet | Packet, Grim |  |  | The method that will be used in preventing fall damage. |
 
 ### NoJumpDelay
 Removes the delay that slows down your jumping.
 
-Plik: `night/modules/impl/movement/NoJumpDelayModule.java`
+File: `night/modules/impl/movement/NoJumpDelayModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Ticks` | Number | 1 | 0 – 20 |  |  | The amount of ticks that have to be waited for before jumping again. |
 
 ### NoSlow
 Removes the slowness effect that you receive when doing certain actions.
 
-Plik: `night/modules/impl/movement/NoSlowModule.java`
+File: `night/modules/impl/movement/NoSlowModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Items` | Boolean | true |  |  |  | Removes the slowness effect from eating or using items. |
 | `Mode` | Mode | Normal | Normal, Strict, GrimV2, GrimV3 |  |  | Item slowdown bypass mode. |
@@ -1649,9 +1653,9 @@ Plik: `night/modules/impl/movement/NoSlowModule.java`
 ### Phase
 Throws an ender pearl to phase into blocks. KingMC Crawl mode requires crawling away from the target block before throwing.
 
-Plik: `night/modules/impl/movement/PhaseModule.java`
+File: `night/modules/impl/movement/PhaseModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Logic` | Mode | KingMC | KingMC, Grim, NCP |  |  | Phase bypass targeting logic: KingMC (bedrock = Grim behavior, crawl requires crawling away from block before throwing), Grim, or NCP. |
 | `Swap` | Mode | Silent |  |  |  | The mode that will be used for switching to the pearl before throwing it. |
@@ -1665,18 +1669,18 @@ Plik: `night/modules/impl/movement/PhaseModule.java`
 ### ReverseStep
 Makes it so that you fall down instantly at a specified height.
 
-Plik: `night/modules/impl/movement/ReverseStepModule.java`
+File: `night/modules/impl/movement/ReverseStepModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Height` | Number | 3.0 | 0.0 – 12.0 |  |  | The maximum height at which instant falling will be applied to. |
 
 ### Speed
 Makes it so that you move faster than normal.
 
-Plik: `night/modules/impl/movement/SpeedModule.java`
+File: `night/modules/impl/movement/SpeedModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Strafe | Vanilla, Strafe, StrafeStrict, Grim |  |  | The method that will be used to increase your speed. |
 | `VanillaSpeed` | Number | 10.0 | 0.0 – 20.0 | mode = Vanilla | Speed | The speed that will be applied to your movement. |
@@ -1694,9 +1698,9 @@ Plik: `night/modules/impl/movement/SpeedModule.java`
 ### Sprint
 Makes it so that you are always sprinting when possible.
 
-Plik: `night/modules/impl/movement/SprintModule.java`
+File: `night/modules/impl/movement/SprintModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Rage | Legit, Rage, Instant, Grim |  |  | The limits to when you can be sprinting. |
 | `InstantSpeed` | Number |  |  | mode = Instant |  | Per-tick horizontal speed to move at (blocks/tick) when Mode is Instant. |
@@ -1707,9 +1711,9 @@ Plik: `night/modules/impl/movement/SprintModule.java`
 ### Step
 Gives you the ability to instantly climb over a customizable amount of blocks.
 
-Plik: `night/modules/impl/movement/StepModule.java`
+File: `night/modules/impl/movement/StepModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Vanilla | Vanilla, NCP |  |  | The mode that will be used to climb over blocks. |
 | `Height` | Number |  |  |  |  | The maximum height at which blocks can be climbed over. |
@@ -1718,9 +1722,9 @@ Plik: `night/modules/impl/movement/StepModule.java`
 ### TickShift
 Manipulates minecraft timer to give you a small speed boost.
 
-Plik: `night/modules/impl/movement/TickShiftModule.java`
+File: `night/modules/impl/movement/TickShiftModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `MaxTicks` | Number | 1 | 1 – 40 |  |  | The maximum amount of ticks that the boost will be charging for. |
 | `Delay` | Number | 4 | 1 – 10 |  |  | The delay between each tick. |
@@ -1729,9 +1733,9 @@ Plik: `night/modules/impl/movement/TickShiftModule.java`
 ### Velocity
 Modifies the amount of knockback that you receive.
 
-Plik: `night/modules/impl/movement/VelocityModule.java`
+File: `night/modules/impl/movement/VelocityModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Normal | Normal, Walls, Cancel, Grim |  |  | The method that will be used to achieve the knockback modification. |
 | `Horizontal` | Number | 0 | 0 – 100 | mode = Normal, Walls |  | The amount of horizontal knockback that you will receive. |
@@ -1749,23 +1753,23 @@ Plik: `night/modules/impl/movement/VelocityModule.java`
 | `AntiBlockPush` | Boolean | true |  |  | Blocks | Prevents you from being pushed outside of blocks. |
 | `AntiFishingRod` | Boolean | false |  |  | FishingRods | Prevents fishing rods from pushing you. |
 
-## Kategoria: PLAYER (22 modułów)
+## Category: PLAYER (22 modules)
 
 ### AirPlace
 Lets you place blocks in the air in servers that allow it.
 
-Plik: `night/modules/impl/player/AirPlaceModule.java`
+File: `night/modules/impl/player/AirPlaceModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Grim` | Boolean | false |  |  |  | Swaps the block into your offhand for just the instant of each placement -- GrimAC's whole scaffolding check group (AirLiquidPlace, RotationPlace, PositionPlace...) only runs for MAIN_HAND placements, verified against its own decompiled source. |
 
 ### AntiHunger
 Reduces the amount of hunger consumption.
 
-Plik: `night/modules/impl/player/AntiHungerModule.java`
+File: `night/modules/impl/player/AntiHungerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Ground` | Boolean | true |  |  |  | Modifies movement packets to decrease hunger consumption. |
 | `Sprint` | Boolean | true |  |  |  | Spoofs sprinting packets to decrease hunger consumption. |
@@ -1773,9 +1777,9 @@ Plik: `night/modules/impl/player/AntiHungerModule.java`
 ### AutoShop
 Automates the server /shop GUI to buy totems, end crystals, or exp bottles.
 
-Plik: `night/modules/impl/player/AutoShopModule.java`
+File: `night/modules/impl/player/AutoShopModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Totem` | Bind |  | 0 |  |  | Keybind to auto buy totems. |
 | `TotemAmount` | Number | 1 | 1 – 10 |  |  | How many totems to buy. |
@@ -1792,9 +1796,9 @@ Plik: `night/modules/impl/player/AutoShopModule.java`
 ### ChestStealer
 Automatically steals, dumps, or drops items to and from an open container.
 
-Plik: `night/modules/impl/player/ChestStealerModule.java`
+File: `night/modules/impl/player/ChestStealerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Steal` | Boolean | true |  |  |  | Move matching items FROM the open container INTO your inventory. |
 | `Mode` | Mode | All | WhiteList, BlackList, All | steal = true |  | WhiteList = steal items IN the list. BlackList = steal items NOT in the list. All = steal everything. |
@@ -1814,9 +1818,9 @@ Plik: `night/modules/impl/player/ChestStealerModule.java`
 ### FastPlace
 Allows you to customize the tick delay between using items.
 
-Plik: `night/modules/impl/player/FastPlaceModule.java`
+File: `night/modules/impl/player/FastPlaceModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Ticks` | Number | 1 | 0 – 20 |  |  | The amount of ticks that have to be waited for before using items again. |
 | `IgnoreBlocks` | Boolean | true |  |  |  | Uses the default Minecraft delay when holding a block item. |
@@ -1827,9 +1831,9 @@ Plik: `night/modules/impl/player/FastPlaceModule.java`
 ### InventoryCleaner
 Auto-drops unwanted items from your inventory each tick.
 
-Plik: `night/modules/impl/player/InventoryCleanerModule.java`
+File: `night/modules/impl/player/InventoryCleanerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | WhiteList | WhiteList, BlackList, All |  |  | WhiteList = drop items IN list. BlackList = drop items NOT in list. All = drop everything. |
 | `Whitelist` | Whitelist | WhitelistSetting.Type.ITEMS |  |  |  | Items this mode's WhiteList/BlackList compares against. |
@@ -1843,9 +1847,9 @@ Plik: `night/modules/impl/player/InventoryCleanerModule.java`
 ### InventorySorter
 Auto-sorts your inventory into the active Rekit kit's layout.
 
-Plik: `night/modules/impl/player/InventorySorterModule.java`
+File: `night/modules/impl/player/InventorySorterModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Delay` | Number | 1 | 0 – 10 |  |  | Tick delay. |
 | `ActionsPerTick` | Number | 1 | 1 – 5 |  |  | Max actions per tick. |
@@ -1854,9 +1858,9 @@ Plik: `night/modules/impl/player/InventorySorterModule.java`
 ### KeyAction
 Keybinds for throwing fireworks, pearls and experience bottles.
 
-Plik: `night/modules/impl/player/KeyActionModule.java`
+File: `night/modules/impl/player/KeyActionModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `FireWork` | Category |  |  |  |  | Keybind and settings for throwing a firework. |
 | `FireWorkBind` | Bind |  | 0 |  | Bind | The key that throws a firework. Hold/ReverseHold repeat it every tick the bind is (or isn't) held. |
@@ -1877,9 +1881,9 @@ Plik: `night/modules/impl/player/KeyActionModule.java`
 ### MultiTask
 Allows you to interact with blocks while eating or using an item.
 
-Plik: `night/modules/impl/player/MultiTaskModule.java`
+File: `night/modules/impl/player/MultiTaskModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Pearl` | Boolean | true |  |  |  | Don't stop eating when you throw a pearl with Phase / KeyAction. |
 | `AutoTotem` | Boolean | true |  |  |  | Don't stop/reset your eating when AutoTotem swaps a totem into your offhand. |
@@ -1887,18 +1891,18 @@ Plik: `night/modules/impl/player/MultiTaskModule.java`
 ### NoBreakDelay
 Allows you to customize the delay between breaking blocks.
 
-Plik: `night/modules/impl/player/NoBreakDelayModule.java`
+File: `night/modules/impl/player/NoBreakDelayModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Delay` | Number | 0 | 0 – 5 |  |  | The delay between block breaks in ticks (0 is no delay, 5 is vanilla). |
 
 ### NoEntityTrace
 Allows you to interact with blocks, bypassing the entities between you and the block.
 
-Plik: `night/modules/impl/player/NoEntityTraceModule.java`
+File: `night/modules/impl/player/NoEntityTraceModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `PickaxeOnly` | Boolean | false |  |  |  | Only bypasses entities if you're holding a pickaxe. |
 | `AngryMobs` | Boolean | false |  |  |  | Only bypasses non-living entities (Crystals, Boats, Minecarts) and neutral/angerable mobs (Endermen, Piglins, Golems, etc.). |
@@ -1907,9 +1911,9 @@ Plik: `night/modules/impl/player/NoEntityTraceModule.java`
 ### NoInteract
 Prevents you from interacting with right-clickable blocks.
 
-Plik: `night/modules/impl/player/NoInteractModule.java`
+File: `night/modules/impl/player/NoInteractModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Sneak | Sneak, Disable |  |  | The way that right-clickable blocks will be ignored. |
 | `Gapple` | Boolean | false |  |  |  | Only disables interactions when holding a golden apple in your main hand. |
@@ -1917,9 +1921,9 @@ Plik: `night/modules/impl/player/NoInteractModule.java`
 ### NoRotate
 Prevents the server from forcing rotations on you.
 
-Plik: `night/modules/impl/player/NoRotateModule.java`
+File: `night/modules/impl/player/NoRotateModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `InBlocks` | Boolean | false |  |  |  | Whether or not to stop rotations whenever inside of a block. |
 | `Spoof` | Boolean | false |  |  |  | Sends rotation packets once you have been rubberbanded. |
@@ -1927,18 +1931,18 @@ Plik: `night/modules/impl/player/NoRotateModule.java`
 ### Reach
 Allows you to modify the distance at which you can interact with blocks.
 
-Plik: `night/modules/impl/player/ReachModule.java`
+File: `night/modules/impl/player/ReachModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Amount` | Number | 6.0 | 0.0 – 8.0 |  |  | The maximum distance at which you will be able to interact with blocks. |
 
 ### Rekit
 Automatically regears from an ender chest shulker using a saved kit.
 
-Plik: `night/modules/impl/player/RekitModule.java`
+File: `night/modules/impl/player/RekitModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Delay` | Number | 1 | 0 – 10 |  |  | Tick delay between pull actions. |
 | `Frequency` | Number | 1 | 1 – 5 |  |  | Max pull actions per tick. |
@@ -1959,9 +1963,9 @@ Plik: `night/modules/impl/player/RekitModule.java`
 ### Replenish
 Automatically replenishes stacks in your hotbar with new ones when they meet a specified threshold.
 
-Plik: `night/modules/impl/player/ReplenishModule.java`
+File: `night/modules/impl/player/ReplenishModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Swap | Pickup, Swap, Quick |  |  | The mode that will be used for switching items. |
 | `Threshold` | Number | 12 | 1 – 64 |  |  | The minimum amount of items in a stack before that stack is replaced. |
@@ -1972,9 +1976,9 @@ Plik: `night/modules/impl/player/ReplenishModule.java`
 ### RotationLock
 Locks your rotation to a certain yaw and pitch.
 
-Plik: `night/modules/impl/player/RotationLockModule.java`
+File: `night/modules/impl/player/RotationLockModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Both | Yaw, Pitch, Both |  |  | Whether the pitch or yaw will be locked. |
 | `Custom` | Boolean | false |  | mode = Yaw, Pitch, Both |  | Holds your locked angle steady (camera free to turn) and only re-locks, snapping straight to the next 45deg, once you've turned far enough past it -- instead of an always-fixed value. |
@@ -1983,9 +1987,9 @@ Plik: `night/modules/impl/player/RotationLockModule.java`
 ### SpeedMine
 Automatically mines blocks at a faster speed using packets.
 
-Plik: `night/modules/impl/player/SpeedMineModule.java`
+File: `night/modules/impl/player/SpeedMineModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Switch` | Mode | Silent |  |  |  | The mode that will be used for automatically switching to the fastest item. |
 | `Range` | Number | 6.0 | 0.0 – 8.0 |  |  | The maximum distance at which blocks will be mined. |
@@ -2021,9 +2025,9 @@ Plik: `night/modules/impl/player/SpeedMineModule.java`
 ### Swing
 Allows you to modify the swing animation and the hand that will be used for swinging.
 
-Plik: `night/modules/impl/player/SwingModule.java`
+File: `night/modules/impl/player/SwingModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Hand` | Mode | Default | Default, None, Packet, Mainhand, Offhand, Both |  |  | The hand that will be used for swinging. |
 | `NoPacket` | Boolean | false |  | hand = Default, Mainhand, Offhand, Both |  | Only swings clientside, meaning nobody will be able to tell if you're swinging or not. |
@@ -2042,9 +2046,9 @@ Plik: `night/modules/impl/player/SwingModule.java`
 ### ThrowItem
 Throw out items that arent belong to your loaded kit. Useful when you need to loot gears during combat
 
-Plik: `night/modules/impl/player/ThrowItemModule.java`
+File: `night/modules/impl/player/ThrowItemModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Delay` | Number | 1 | 0 – 20 |  |  | Tick delay between throw actions. |
 | `ActionsPerTick` | Number | 3 | 1 – 20 |  |  | Maximum items to drop per pass. |
@@ -2058,27 +2062,27 @@ Plik: `night/modules/impl/player/ThrowItemModule.java`
 ### Timer
 Makes your game run at a faster tick speed.
 
-Plik: `night/modules/impl/player/TimerModule.java`
+File: `night/modules/impl/player/TimerModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Multiplier` | Number |  |  |  |  | The multiplier that will be added to the game's speed. |
 
 ### XCarry
 Allows you to carry items in your crafting slots.
 
-Plik: `night/modules/impl/player/XCarryModule.java`
+File: `night/modules/impl/player/XCarryModule.java`
 
-_Moduł nie posiada własnych ustawień._
+_This module has no settings of its own._
 
-## Kategoria: VISUALS (30 modułów)
+## Category: VISUALS (30 modules)
 
 ### Ambience
 Modifies the world ambient lighting and atmosphere color.
 
-Plik: `night/modules/impl/visuals/AmbienceModule.java`
+File: `night/modules/impl/visuals/AmbienceModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Color` | Color | ColorSetting.Color(Color(255, 128, 128, 255), true, false) |  |  |  | The ambience color applied to the world. |
 | `UseSaturation` | Boolean | false |  |  |  | Overrides the saturation of the ambience color. |
@@ -2090,9 +2094,9 @@ Plik: `night/modules/impl/visuals/AmbienceModule.java`
 ### ArrowTracers
 Renders arrows towards players who are off screen.
 
-Plik: `night/modules/impl/visuals/ArrowTracersModule.java`
+File: `night/modules/impl/visuals/ArrowTracersModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Width` | Number |  |  |  |  | The width of the arrows being rendered. |
 | `Height` | Number |  |  |  |  | The height of the arrows being rendered. |
@@ -2108,18 +2112,18 @@ Plik: `night/modules/impl/visuals/ArrowTracersModule.java`
 ### AspectRatio
 Modifies the game's aspect ratio.
 
-Plik: `night/modules/impl/visuals/AspectRatioModule.java`
+File: `night/modules/impl/visuals/AspectRatioModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Ratio` | Number |  |  |  |  | The aspect ratio that will be applied to the game's rendering. |
 
 ### Atmosphere
 Modifies the world's atmosphere, such as time and color.
 
-Plik: `night/modules/impl/visuals/AtmosphereModule.java`
+File: `night/modules/impl/visuals/AtmosphereModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `ModifyTime` | Boolean | true |  |  |  | Modifies the world's time. |
 | `Time` | Number | 200 | -200 – 200 | modifyTime = true |  | The time that the world will be set to. |
@@ -2142,9 +2146,9 @@ Plik: `night/modules/impl/visuals/AtmosphereModule.java`
 ### BlockHighlight
 Replaces the default Minecraft block highlight with a more customizable one.
 
-Plik: `night/modules/impl/visuals/BlockHighlightModule.java`
+File: `night/modules/impl/visuals/BlockHighlightModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Animation` | Mode | Static | Static, Slide |  |  | The animation that will be applied to the rendering. |
 | `Mode` | Mode | Outline | None, Fill, Outline, Both, Complex |  |  | The rendering that will be applied to the target block. |
@@ -2155,9 +2159,9 @@ Plik: `night/modules/impl/visuals/BlockHighlightModule.java`
 ### BreakHighlight
 Renders blocks that are being mined by other players.
 
-Plik: `night/modules/impl/visuals/BreakHighlightModule.java`
+File: `night/modules/impl/visuals/BreakHighlightModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Outline | Fill, Outline, Both |  |  | The rendering that will be applied to the mine esp. |
 | `FillColor` | Color | ColorUtils.getDefaultFillColor() |  | mode = Fill, Both |  | The color used for the fill rendering. |
@@ -2170,9 +2174,9 @@ Plik: `night/modules/impl/visuals/BreakHighlightModule.java`
 ### Chams
 Adds a customizable render on top of the default Minecraft rendering.
 
-Plik: `night/modules/impl/visuals/ChamsModule.java`
+File: `night/modules/impl/visuals/ChamsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number |  |  |  |  | The maximum range at which chams will be rendered. |
 | `Entities` | Category |  |  |  |  | The category for settings related to chams rendered on living entities. |
@@ -2222,9 +2226,9 @@ Plik: `night/modules/impl/visuals/ChamsModule.java`
 ### ChestScan
 Highlights opened chests by contents (empty/partial/full), with optional hopper-chain inference.
 
-Plik: `night/modules/impl/visuals/ChestScanModule.java`
+File: `night/modules/impl/visuals/ChestScanModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `ScanRadius` | Number | 64.0 | 8.0 – 128.0 |  |  | How far (in blocks) to render tracked chests and consider hopper chains. |
 | `HopperChain` | Boolean | false |  |  |  | Smart mode to check chests linked to the bottom chest by hoppers. |
@@ -2242,9 +2246,9 @@ Plik: `night/modules/impl/visuals/ChestScanModule.java`
 ### DeathEffects
 Renders certain effects on players when they die or disconnect.
 
-Plik: `night/modules/impl/visuals/DeathEffectsModule.java`
+File: `night/modules/impl/visuals/DeathEffectsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Both | Lightning, Overlay, Meme, Both |  |  | The effect that will be rendered. |
 | `LightningOnKill` | Boolean | true |  | mode = Lightning, Both |  | Spawn lightning bolt when a player dies near you. |
@@ -2263,9 +2267,9 @@ Plik: `night/modules/impl/visuals/DeathEffectsModule.java`
 ### ESP
 Renders a box ESP around entities that you have selected.
 
-Plik: `night/modules/impl/visuals/ESPModule.java`
+File: `night/modules/impl/visuals/ESPModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Players` | Boolean | true |  |  |  | Renders the box ESP on player entities. |
 | `Hostiles` | Boolean | true |  |  |  | Renders the box ESP on hostile entities. |
@@ -2283,9 +2287,9 @@ Plik: `night/modules/impl/visuals/ESPModule.java`
 ### Freecam
 Allows you to move your camera anywhere you want without restriction.
 
-Plik: `night/modules/impl/visuals/FreecamModule.java`
+File: `night/modules/impl/visuals/FreecamModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `HorizontalSpeed` | Number |  |  |  |  | The speed at which your camera will move horizontally. |
 | `VerticalSpeed` | Number |  |  |  |  | The speed at which your camera will move vertically. |
@@ -2295,18 +2299,18 @@ Plik: `night/modules/impl/visuals/FreecamModule.java`
 ### FullBright
 Gives you the ability to clearly see even when in the dark.
 
-Plik: `night/modules/impl/visuals/FullBrightModule.java`
+File: `night/modules/impl/visuals/FullBrightModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Gamma | Gamma, Potion |  |  | The way that will be used to change the game's brightness. |
 
 ### HoleESP
 Highlights all holes in a specified radius.
 
-Plik: `night/modules/impl/visuals/HoleESPModule.java`
+File: `night/modules/impl/visuals/HoleESPModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number | 10 | 1 – 50 |  |  | The maximum range at which holes will be rendered. |
 | `Asynchronous` | Boolean | true |  |  |  | Performs calculations on separate threads. |
@@ -2362,9 +2366,9 @@ Plik: `night/modules/impl/visuals/HoleESPModule.java`
 ### Icons
 Renders icons for specific events.
 
-Plik: `night/modules/impl/visuals/IconsModule.java`
+File: `night/modules/impl/visuals/IconsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Chorus` | Category |  |  |  |  | The category for chorus icons. |
 | `Chorus` | Boolean | true |  |  | Enabled | Renders an icon for chorus positions. |
@@ -2378,9 +2382,9 @@ Plik: `night/modules/impl/visuals/IconsModule.java`
 ### LogoutSpot
 Renders a frozen chams model and nametag where players logged out.
 
-Plik: `night/modules/impl/visuals/LogoutSpotModule.java`
+File: `night/modules/impl/visuals/LogoutSpotModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Both | Fill, Outline, Both |  |  | The rendering that will be applied to the logout chams. |
 | `FillColor` | Color | ColorUtils.getDefaultFillColor() |  | mode = Fill, Both |  | The color used for the fill rendering. |
@@ -2393,9 +2397,9 @@ Plik: `night/modules/impl/visuals/LogoutSpotModule.java`
 ### MotionCamera
 Smooths camera movement and adds smooth perspective transitions.
 
-Plik: `night/modules/impl/visuals/MotionCameraModule.java`
+File: `night/modules/impl/visuals/MotionCameraModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `NoFirstPerson` | Boolean | true |  |  |  | Disables motion camera in first person. |
 | `PearlException` | Boolean | true |  | noFirstPerson = true |  | Still smooths in 1st person for a moment after throwing an ender pearl (ignores NoFirstPerson). |
@@ -2409,9 +2413,9 @@ Plik: `night/modules/impl/visuals/MotionCameraModule.java`
 ### NameTags
 Replaces the default Minecraft NameTag with a more visible and customizable one.
 
-Plik: `night/modules/impl/visuals/NameTagsModule.java`
+File: `night/modules/impl/visuals/NameTagsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `GameMode` | Boolean | false |  |  |  | Renders the player's gamemode. |
 | `Ping` | Boolean | true |  |  |  | Renders the player's latency to the server. |
@@ -2434,9 +2438,9 @@ Plik: `night/modules/impl/visuals/NameTagsModule.java`
 ### NoRender
 Disables the rendering of certain things.
 
-Plik: `night/modules/impl/visuals/NoRenderModule.java`
+File: `night/modules/impl/visuals/NoRenderModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `HurtCamera` | Boolean | true |  |  |  | Disables the rendering of the hurt camera. |
 | `Explosions` | Boolean | true |  |  |  | Disables the rendering of explosion particles. |
@@ -2473,9 +2477,9 @@ Plik: `night/modules/impl/visuals/NoRenderModule.java`
 ### Particles
 Custom particle effects for totem pops and entity hits.
 
-Plik: `night/modules/impl/visuals/ParticlesModule.java`
+File: `night/modules/impl/visuals/ParticlesModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Totem` | Category |  |  |  |  | Settings for totem pop particle effects. |
 | `Totem` | Boolean | true |  |  | Enabled | Enables totem particle customization. |
@@ -2501,9 +2505,9 @@ Plik: `night/modules/impl/visuals/ParticlesModule.java`
 ### PhaseESP
 Renders ESP on blocks which have a safe base.
 
-Plik: `night/modules/impl/visuals/PhaseESPModule.java`
+File: `night/modules/impl/visuals/PhaseESPModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Fill` | Mode | Normal | None, Normal |  |  | The mode for the fill rendering on the phase blocks. |
 | `FillHeight` | Number | 1.0 | -2.0 – 2.0 | fill = Normal |  | The height of the fill rendering on the phase blocks. |
@@ -2525,9 +2529,9 @@ Plik: `night/modules/impl/visuals/PhaseESPModule.java`
 ### PopChams
 Renders chams on a frozen snapshot of the entity's pose the moment they pop a totem.
 
-Plik: `night/modules/impl/visuals/PopChamsModule.java`
+File: `night/modules/impl/visuals/PopChamsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Duration` | Number | 1500 | 0 – 5000 |  |  | The duration for the pop chams fade. |
 | `YOffset` | Number | 0 | -5 – 5 |  |  | The vertical float/rise offset for pop chams. |
@@ -2538,9 +2542,9 @@ Plik: `night/modules/impl/visuals/PopChamsModule.java`
 ### Shaders
 Overlays specified entities with a customizable shader.
 
-Plik: `night/modules/impl/visuals/ShadersModule.java`
+File: `night/modules/impl/visuals/ShadersModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number |  |  |  |  | The maximum range at which shaders will be rendered. |
 | `Targets` | Category |  |  |  |  | The things that the shader rendering will be applied onto. |
@@ -2585,9 +2589,9 @@ Plik: `night/modules/impl/visuals/ShadersModule.java`
 ### StashFinder
 Scans loaded chunks for loot stashes and storage animals, alerting via chat and Discord webhook.
 
-Plik: `night/modules/impl/visuals/StashFinderModule.java`
+File: `night/modules/impl/visuals/StashFinderModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Containers` | Category |  |  |  |  | Threshold settings for containers. |
 | `Chests` | Number | 10 | 1 – 64 |  |  | Minimum chests required. |
@@ -2615,9 +2619,9 @@ Plik: `night/modules/impl/visuals/StashFinderModule.java`
 ### TextESP
 Renders text ESP on the world.
 
-Plik: `night/modules/impl/visuals/TextESPModule.java`
+File: `night/modules/impl/visuals/TextESPModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Items` | Boolean | true |  |  |  | Renders text ESP on item entities. |
 | `Mode` | Mode | WhiteList | WhiteList, BlackList, All | items = true |  | WhiteList = only listed items. BlackList = items NOT in list. All = render on every item. |
@@ -2631,9 +2635,9 @@ Plik: `night/modules/impl/visuals/TextESPModule.java`
 ### Tracers
 Renders a line showing where other players are located.
 
-Plik: `night/modules/impl/visuals/TracersModule.java`
+File: `night/modules/impl/visuals/TracersModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `AntiBot` | Boolean | false |  |  |  | Prevents bots from having arrow tracers rendered for them. |
 | `Mode` | Mode | Distance | Distance, Custom |  |  | The mode for the tracers color. |
@@ -2642,9 +2646,9 @@ Plik: `night/modules/impl/visuals/TracersModule.java`
 ### Trails
 Renders smooth trails behind projectiles and throwables.
 
-Plik: `night/modules/impl/visuals/TrailsModule.java`
+File: `night/modules/impl/visuals/TrailsModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Targets` | Category |  |  |  |  | The projectiles to render trails for. |
 | `Pearls` | Boolean | true |  |  |  | Renders trails behind ender pearls. |
@@ -2659,9 +2663,9 @@ Plik: `night/modules/impl/visuals/TrailsModule.java`
 ### Trajectories
 Draws a predicted trajectory of where throwables will end up when you throw them.
 
-Plik: `night/modules/impl/visuals/TrajectoriesModule.java`
+File: `night/modules/impl/visuals/TrajectoriesModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `LineColor` | Color | ColorUtils.getDefaultOutlineColor() |  |  |  | The color of the trajectory line. |
 | `Entities` | Category |  |  |  |  | The rendering that will be applied to entities hit by the trajectory. |
@@ -2676,9 +2680,9 @@ Plik: `night/modules/impl/visuals/TrajectoriesModule.java`
 ### ViewClip
 Makes your camera clip through walls and allows you to change the camera's distance from yourself.
 
-Plik: `night/modules/impl/visuals/ViewClipModule.java`
+File: `night/modules/impl/visuals/ViewClipModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Extend` | Boolean | false |  |  |  | Changes the distance of the third person camera from yourself. |
 | `Distance` | Number |  |  | extend = true |  | The distance of the third person camera from your character. |
@@ -2686,9 +2690,9 @@ Plik: `night/modules/impl/visuals/ViewClipModule.java`
 ### ViewModel
 Modifies the position, scale and rotation of the player viewmodel.
 
-Plik: `night/modules/impl/visuals/ViewModelModule.java`
+File: `night/modules/impl/visuals/ViewModelModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Mode` | Mode | Each | Each, Both |  |  | Hand modification mode. |
 | `MainhandSwap` | Boolean | true |  |  |  | Disables the drop down animation when switching mainhand items. |
@@ -2722,9 +2726,9 @@ Plik: `night/modules/impl/visuals/ViewModelModule.java`
 ### VoidESP
 Highlights any non-bedrock blocks that can drop you into the void.
 
-Plik: `night/modules/impl/visuals/VoidESPModule.java`
+File: `night/modules/impl/visuals/VoidESPModule.java`
 
-| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |
+| Setting | Type | Default | Range / options | Group | Tag | Description |
 |---|---|---|---|---|---|---|
 | `Range` | Number | 10 | 1 – 50 |  |  | The maximum range at which void blocks will be rendered. |
 | `Asynchronous` | Boolean | true |  |  |  | Performs calculations on separate threads. |
@@ -2749,4 +2753,4 @@ Plik: `night/modules/impl/visuals/VoidESPModule.java`
 
 ---
 
-Liczba modułów: **149**, liczba ustawień: **1544**.
+Modules: **149**, settings: **1547**.

@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0.152.
- * 
+ *
  * Could not load the following classes:
  *  com.mojang.authlib.GameProfile
  *  net.minecraft.client.multiplayer.PlayerInfo
@@ -41,11 +41,27 @@ implements IMinecraft {
 
     @Inject(method={"getSkin"}, at={@At(value="TAIL")}, cancellable=true)
     private void getSkinTextures(CallbackInfoReturnable<PlayerSkin> info) {
-        if (this.profile.name().equals(PlayerListEntryMixin.mc.player.getGameProfile().name()) && this.profile.id().equals(PlayerListEntryMixin.mc.player.getGameProfile().id()) && Night.MODULE_MANAGER.getModule(CapesModule.class).isToggled() && Night.MODULE_MANAGER.getModule(CapesModule.class).getCapeTexture() != null) {
-            Identifier identifier = Night.MODULE_MANAGER.getModule(CapesModule.class).getCapeTexture();
-            PlayerSkin skin = (PlayerSkin)info.getReturnValue();
-            info.setReturnValue(new PlayerSkin(skin.body(), (ClientAsset.Texture)new ClientAsset.ResourceTexture(identifier), skin.elytra(), skin.model(), skin.secure()));
+        if (Night.MODULE_MANAGER == null || this.profile == null || PlayerListEntryMixin.mc.player == null) {
+            return;
         }
+        CapesModule capes = Night.MODULE_MANAGER.getModule(CapesModule.class);
+        if (capes == null || !capes.isToggled()) {
+            return;
+        }
+        Identifier identifier = capes.getCapeTexture();
+        if (identifier == null) {
+            return;
+        }
+        boolean self = this.profile.id() != null && this.profile.id().equals(PlayerListEntryMixin.mc.player.getGameProfile().id());
+        if (!self && !capes.others.getValue()) {
+            return;
+        }
+        PlayerSkin skin = (PlayerSkin)info.getReturnValue();
+        if (skin == null) {
+            return;
+        }
+        ClientAsset.Texture cape = new ClientAsset.ResourceTexture(identifier);
+        ClientAsset.Texture elytra = capes.elytra.getValue() ? cape : skin.elytra();
+        info.setReturnValue(new PlayerSkin(skin.body(), cape, elytra, skin.model(), skin.secure()));
     }
 }
-

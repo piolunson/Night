@@ -1,92 +1,100 @@
 # Night 26.2
 
-Night to klient użytkowy (utility mod) dla **Minecrafta 26.2** na **Fabric**, nastawiony na serwery anarchiczne: combat (crystal aura, surround, piston aura, hole fill), movement, render, world oraz zestaw narzędzi administracyjnych.
+Night is a utility client (mod) for **Minecraft 26.2** on **Fabric**, aimed at anarchy servers: combat (crystal aura, surround, piston aura, hole fill), movement, render, world and a set of administrative tools.
 
-Repozytorium zawiera pełne źródła projektu w standardowym układzie Fabric/Gradle — kod został odtworzony z opublikowanego archiwum `Night-src_out-build-26.2.zip`, naprawiony pod kątem kompilacji na Minecraft 26.2 i zbudowany od zera.
+The repository contains the complete project sources in the standard Fabric/Gradle layout — the code was reconstructed from the published `Night-src_out-build-26.2.zip` archive, repaired so it compiles on Minecraft 26.2, and built from scratch.
 
-| Element | Wersja |
+| Component | Version |
 |---|---|
 | Minecraft | 26.2 |
 | Fabric Loader | 0.19.3+ |
 | Fabric API | 0.161.0+26.2 |
 | Java | 25 (Temurin 25.0.5.1+2) |
-| Gradle | 9.9.2 (wrapper w repo) |
-| Loom | 1.19.4 (`net.fabricmc.fabric-loom`, tryb no-remap) |
+| Gradle | 9.9.2 (wrapper in repo) |
+| Loom | 1.19.4 (`net.fabricmc.fabric-loom`, no-remap mode) |
 
-## Budowanie
+## Building
 
-Wymagany JDK 25 (Minecraft 26.2 nie jest obfuskowany, więc projekt nie używa mappings — Loom pracuje w trybie no-remap).
+JDK 25 is required (Minecraft 26.2 is not obfuscated, so the project uses no mappings and Loom runs in no-remap mode).
 
 ```bash
-export JAVA_HOME=/ścieżka/do/jdk-25
+export JAVA_HOME=/path/to/jdk-25
 ./gradlew build
 ```
 
-Wynik:
+Output:
 
 ```
-build/libs/night-26.2-<hash>.jar             # mod (gotowy do wrzucenia do mods/)
-build/libs/night-26.2-<hash>-sources.jar     # źródła w JAR-ze
-build/libs/SHA256SUMS.txt                    # sumy kontrolne obu JAR-ów
+build/libs/night-26.2-<hash>.jar             # mod (drop into mods/)
+build/libs/night-26.2-<hash>-sources.jar     # sources inside a JAR
+build/libs/SHA256SUMS.txt                    # checksums of both archives
 ```
 
-Sama kompilacja: `./gradlew compileJava`.
+Compile only: `./gradlew compileJava`.
 
-`<hash>` to skrócony hash commita, z którego zbudowano (np. `night-26.2-8ceb09b.jar`), a `build/libs/SHA256SUMS.txt` zawiera sumy SHA-256 obu archiwów. `./gradlew build` uruchamia też bramkę bajtkodową (`tools/ClassCheck.java`): każda skompilowana klasa jest parsowana i definiowana przez JVM, więc błąd typu `ClassFormatError` (np. zduplikowana metoda po dekompilacji) kończy build błędem, zamiast wywalić grę. To samo robi CI: `.github/workflows/build.yml`.
+`<hash>` is the short hash of the commit the build came from (for example `night-26.2-8ceb09b.jar`), and `build/libs/SHA256SUMS.txt` holds the SHA-256 of both archives. `./gradlew build` also runs a bytecode gate (`tools/ClassCheck.java`): every compiled class is parsed and defined by the JVM, so a `ClassFormatError` (for example a method duplicated by the decompiler) fails the build instead of crashing the game. CI does the same in `.github/workflows/build.yml`.
 
-## Instalacja
+## Installation
 
-1. Zainstaluj Fabric Loader 0.19.3+ dla Minecraft 26.2.
-2. Wrzuć `night-26.2-<hash>.jar` oraz **Fabric API** (`fabric-api-0.161.0+26.2.jar`) do `mods/`.
-3. Uruchom profil Fabric. Mod wymaga Javy 25.
+1. Install Fabric Loader 0.19.3+ for Minecraft 26.2.
+2. Put `night-26.2-<hash>.jar` and **Fabric API** (`fabric-api-0.161.0+26.2.jar`) into `mods/`.
+3. Start the Fabric profile. The mod requires Java 25.
 
-## Struktura projektu
+## Project layout
 
 ```
 src/main/java/night/
-├── Night.java              # klasa główna, inicjalizacja managerów
-├── accounts/               # konta Microsoft (device-code OAuth) i offline
-├── managers/               # ModuleManager, ConfigManager, RotationManager, WorldManager, ...
-├── modules/                # 148 modułów w kategoriach (combat, movement, player, visuals, ...)
-├── settings/               # system ustawień (Boolean, Number, Mode, String, Color, Bind, Whitelist, ...)
-├── events/                 # własny event bus + typy eventów
-├── mixins/                 # mixiny i accessory do klas Minecrafta
-├── pingbypass/             # proxy „ping bypass" (Netty) do serwerów z proxy
-├── gui/                    # ClickGUI, HUD, ekrany (accounts, image select, whitelist)
-├── utils/                  # matematyka, render, fonty, świat, inventory, rotacje
-└── commands/               # komendy czatu (module, config, bind, friend, ...)
+├── Night.java              # main class, manager initialisation
+├── accounts/               # Microsoft accounts (device-code OAuth) and offline accounts
+├── managers/               # ConfigManager, RotationManager, WorldManager, ...
+├── modules/                # modules grouped by category (combat, movement, player, visuals, ...)
+├── settings/               # settings system (Boolean, Number, Mode, String, Color, Bind, Whitelist, ...)
+├── events/                 # custom event bus and event types
+├── mixins/                 # mixins and accessors for Minecraft classes
+├── pingbypass/             # "ping bypass" proxy (Netty) for proxied servers
+├── gui/                    # ClickGUI, HUD, screens (accounts, image select, whitelist)
+├── utils/                  # maths, rendering, fonts, world, inventory, rotations
+└── commands/               # chat commands (module, config, bind, friend, ...)
 ```
 
-Zasoby: `src/main/resources/` (`fabric.mod.json`, `night.mixins.json`, `night.accesswidener`, assety GUI).
+Resources: `src/main/resources/` (`fabric.mod.json`, `night.mixins.json`, `night.accesswidener`, GUI assets).
 
-## Dokumentacja ustawień
+## Capes
 
-[`docs/SETTINGS.md`](docs/SETTINGS.md) — wygenerowany z kodu opis **wszystkich 1538 ustawień w 148 modułach**: nazwa, typ, wartość domyślna, zakres lub lista opcji, warunek widoczności (grupa) oraz pełny opis każdego ustawienia.
+The `Capes` module ships eight original designs (`Night`, `Aurora`, `Circuit`, `Ember`, `Sakura`, `Prism`, `Static`, `Void`) plus `None`. Pick one with the `Cape` setting; `Elytra` wears the same design on your elytra and `Others` shows it on every other player (client-side only). The cape art is pixel art generated by `tools/gen_capes.py`, so the textures rebuild deterministically:
 
-Ustawieniami można sterować z czatu, np.:
-
-```
-<prefix>module <nazwa> <ustawienie> <wartość>
-<prefix>module <nazwa> <ustawienie> reset
-<prefix>module <nazwa> <ustawienie> list
+```bash
+python3 tools/gen_capes.py
 ```
 
-## Bezpieczeństwo
+## Settings reference
 
-[`docs/SECURITY.md`](docs/SECURITY.md) — raport z audytu źródeł: brak uruchamiania procesów, brak ładowania bibliotek natywnych, wykaz wszystkich połączeń sieciowych w kodzie, miejsca zapisu danych lokalnych oraz ocena ryzyka.
+[`docs/SETTINGS.md`](docs/SETTINGS.md) — a generated description of **every setting in every module**: name, type, default value, range or option list, visibility condition (group) and the full description of each setting.
 
-Najważniejsze punkty:
+Settings can be driven from chat, for example:
 
-- brak `Runtime.exec` / `ProcessBuilder` / `System.load` w kodzie modu,
-- brak aktywnego mechanizmu zaszyfrowanych payloadów (`PayloadClassLoader` istnieje, ale nie ma żadnych plików `.enc` i nie jest nigdzie tworzony),
-- mod łączy się wyłącznie z endpointami opisanymi w raporcie (Microsoft/Xbox dla logowania, serwer IRC moda, opcjonalny webhook Discorda konfigurowany przez użytkownika, własny serwer proxy),
-- tokeny kont są zapisywane lokalnie w `accounts.json` w postaci jawnej — traktuj ten plik jak hasło.
+```
+<prefix>module <name> <setting> <value>
+<prefix>module <name> <setting> reset
+<prefix>module <name> <setting> list
+```
 
-## Stan odtworzenia źródeł
+## Security
 
-Kod pochodzi z dekompilacji (CFR 0.152), dlatego przeszedł automatyczną i ręczną naprawę: usunięto adnotacje Lomboka i `javax.annotation`, odtworzono brakujące klasy (`night.accounts.Account`, `AccountType`, `MicrosoftAuth`, `night.managers.AccountManager`, accessor `MinecraftUserAccessor`), naprawiono setki artefaktów dekompilatora (casty, generyki, `switch` wzorcowe, zmienne lokalne, bloki try/finally). Projekt kompiluje się i buduje bez błędów; zachowanie moda nie było testowane w grze.
+[`docs/SECURITY.md`](docs/SECURITY.md) — a source audit report: no process execution, no native library loading, a list of every network connection in the code, where local data is written, and a risk assessment.
 
-## Licencja i autorzy
+Key points:
 
-- Autorzy oryginału (z `fabric.mod.json`): **thonsanlo**, **HumanBeing**, **EU** (baza).
-- Plik `LICENSE` w repozytorium: **MIT** (Copyright 2026 godmodule). Metadane `fabric.mod.json` deklarują `GPL-3.0` — pozostawiono bez zmian, tak jak w oryginale; przy redystrybucji upewnij się, która licencja obowiązuje.
+- no `Runtime.exec` / `ProcessBuilder` / `System.load` anywhere in the mod,
+- no active encrypted-payload mechanism (`PayloadClassLoader` exists, but there are no `.enc` files and it is never instantiated),
+- the mod only talks to the endpoints listed in the report (Microsoft/Xbox for sign-in, the mod's IRC server, an optional Discord webhook configured by the user, its own proxy server),
+- account tokens are stored locally in `accounts.json` in plaintext — treat that file like a password.
+
+## State of the reconstructed sources
+
+The code comes from a decompilation (CFR 0.152), so it went through automatic and manual repair: Lombok and `javax.annotation` annotations were removed, missing classes were recreated (`night.accounts.Account`, `AccountType`, `MicrosoftAuth`, `night.managers.AccountManager`, the `MinecraftUserAccessor` accessor), and hundreds of decompiler artefacts were fixed (casts, generics, pattern `switch`, local variables, try/finally blocks). The project compiles and builds without errors; the mod's behaviour has not been tested in game.
+
+## Licence and authors
+
+- Original authors (from `fabric.mod.json`): **thonsanlo**, **HumanBeing**, **EU** (base).
+- The `LICENSE` file in this repository: **MIT** (Copyright 2026 godmodule). The `fabric.mod.json` metadata declares `GPL-3.0`, left as in the original; before redistributing, make sure which licence applies.

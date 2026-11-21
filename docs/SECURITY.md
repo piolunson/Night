@@ -1,83 +1,83 @@
-# Raport bezpieczeństwa — Night 26.2
+# Security report — Night 26.2
 
-Audyt wykonany na źródłach odtworzonych z archiwum `Night-src_out-build-26.2.zip` (SHA-256 archiwum: `041c9bb559e0761fe959d9e67523d51bcb260998c650af2dc900d709cdf670a4`). Zakres: 628 plików źródłowych (562 klasy `.java`), zasoby, konfiguracja Gradle/Fabric. Metoda: przegląd statyczny kodu (grep po API wysokiego ryzyka + ręczna analiza trafień), bez uruchamiania moda w grze.
+Audit performed on the sources reconstructed from the `Night-src_out-build-26.2.zip` archive (archive SHA-256: `041c9bb559e0761fe959d9e67523d51bcb260998c650af2dc900d709cdf670a4`). Scope: the Java sources, resources, and the Gradle/Fabric configuration. Method: static review (grep for high-risk APIs plus manual analysis of every hit), without running the mod in game.
 
-## Podsumowanie
+## Summary
 
-| Kategoria | Wynik |
+| Category | Result |
 |---|---|
-| Uruchamianie procesów (`Runtime.exec`, `ProcessBuilder`) | **brak** |
-| Ładowanie bibliotek natywnych (`System.load`, `System.loadLibrary`, JNI) | **brak** |
-| Zdalne ładowanie i definiowanie klas | klasa `PayloadClassLoader` + `AesCrypto` istnieją, ale **nie ma żadnych plików `.enc`** i loader nie jest nigdzie tworzony — martwy kod |
-| Kradzież przeglądarek / portfeli / sesji | **brak** ścieżek do profili przeglądarek, portfeli kryptowalut, `Local Storage`, `login data` |
-| Wysyłanie plików z dysku | **brak** poza obrazami wybranymi przez użytkownika w GUI (moduł obrazów) |
-| Telemetria | **brak aktywnej** — `NightUserManager.poll()` jest pustą metodą (wątek odpytuje co 30 s, ale nic nie wysyła) |
-| Zapis danych lokalnych | konfiguracja, konta, listy, kit-y, zrzuty skanów — w katalogu gry |
-| Ryzyko ogólne | **średnie** — nie ma złośliwego kodu, ale mod jest klientem cheatującym i przechowuje tokeny konta w plaintext |
+| Process execution (`Runtime.exec`, `ProcessBuilder`) | **none** |
+| Native library loading (`System.load`, `System.loadLibrary`, JNI) | **none** |
+| Remote class loading and definition | the `PayloadClassLoader` class and `AesCrypto` exist, but there are **no `.enc` files** and the loader is never instantiated — dead code |
+| Browser / wallet / session theft | **no** paths to browser profiles, crypto wallets, `Local Storage` or `login data` |
+| Uploading files from disk | **none**, apart from images the user picks in the GUI (image module) |
+| Telemetry | **none active** — `NightUserManager.poll()` is an empty method (the thread polls every 30 s but sends nothing) |
+| Local data written | configuration, accounts, lists, kits, scan dumps — all inside the game directory |
+| Overall risk | **medium** — no malicious code, but this is a cheating client and it stores account tokens in plaintext |
 
-## 1. Brak wykonania kodu z zewnątrz
+## 1. No execution of external code
 
-Sprawdzone wzorce (0 trafień w kodzie produkcyjnym):
+Patterns checked (0 hits in production code):
 
 - `Runtime.getRuntime().exec`, `ProcessBuilder`, `new ProcessBuilder`
 - `System.load`, `System.loadLibrary`, `native` methods
 - `ScriptEngine`, `Nashorn`, `Groovy`, `eval`
-- deserializacja `ObjectInputStream` na danych z sieci
-- `Base64` + `Cipher` w ścieżce startowej
+- `ObjectInputStream` deserialisation of network data
+- `Base64` + `Cipher` on the startup path
 
-Jedyne trafienia `System.setProperty` to `java.awt.headless=false` (potrzebne do obrazów w GUI).
+The only `System.setProperty` hits are `java.awt.headless=false` (needed for GUI images).
 
 ### `PayloadClassLoader` / `AesCrypto`
 
-`night/core/PayloadClassLoader.java` potrafi odszyfrować zasób `<klasa>.enc` kluczem AES i zdefiniować go przez `defineClass`. To klasyczny mechanizm ukrywania payloadu, **ale**:
+`night/core/PayloadClassLoader.java` can decrypt a `<class>.enc` resource with an AES key and define it through `defineClass`. That is a classic payload-hiding mechanism, **but**:
 
-- w `src/main/resources` nie ma ani jednego pliku `.enc`,
-- `PayloadClassLoader` nie jest nigdzie instancjonowany (`new PayloadClassLoader` — 0 trafień),
-- `AesCrypto` jest używany wyłącznie przez ten loader.
+- there is not a single `.enc` file in `src/main/resources`,
+- `PayloadClassLoader` is never instantiated (`new PayloadClassLoader` — 0 hits),
+- `AesCrypto` is used only by that loader.
 
-Wniosek: funkcjonalność jest nieaktywna w tym buildzie. Gdyby w przyszłym buildzie pojawiły się pliki `.enc`, należy je potraktować jako niezaufane.
+Conclusion: the functionality is inactive in this build. If `.enc` files ever appear in a future build, treat them as untrusted.
 
-## 2. Połączenia sieciowe w kodzie
+## 2. Network connections in the code
 
-| Endpoint | Kiedy | Co wysyła |
+| Endpoint | When | What it sends |
 |---|---|---|
-| `login.microsoftonline.com/consumers/oauth2/v2.0/devicecode` i `/token` | logowanie konta Microsoft (device-code OAuth) | identyfikator klienta OAuth, kod urządzenia |
-| `user.auth.xboxlive.com`, `xsts.auth.xboxlive.com` | logowanie konta Microsoft | token MSA → XBL/XSTS |
-| `api.minecraftservices.com/authentication/login_with_xbox`, `/minecraft/profile` | logowanie konta Microsoft | token XSTS, potem pobranie profilu |
-| `wss://nightclient.info.vn/irc`, `ws://nightclient.info.vn/irc`, `ws://103.78.2.201/irc` | moduł **IRC** włączony przez użytkownika | nick gracza i treść wiadomości IRC |
-| `nightclient.info.vn` (`NightUserManager`) | start klienta, wątek co 30 s | **nic** — `poll()` jest pusty |
-| webhook Discorda (URL podawany przez użytkownika w module **StashFinder**) | wykrycie stasha | treść alertu + ping `<@userID>` |
-| `ServerSocket(port)` w module **EURobotics** | moduł włączony | lokalny socket sterowania (bot/klient zewnętrzny) |
-| `ServerSocket` proxy w module **PingBypass** (domyślnie port 25565) | moduł włączony | lokalny proxy TCP do wskazanego serwera MC |
-| updater | — | `new URL("")` i pusty `SECRET_KEY` → aktualizator jest wyłączony |
+| `login.microsoftonline.com/consumers/oauth2/v2.0/devicecode` and `/token` | Microsoft account sign-in (device-code OAuth) | OAuth client id, device code |
+| `user.auth.xboxlive.com`, `xsts.auth.xboxlive.com` | Microsoft account sign-in | MSA token → XBL/XSTS |
+| `api.minecraftservices.com/authentication/login_with_xbox`, `/minecraft/profile` | Microsoft account sign-in | XSTS token, then the profile request |
+| `wss://nightclient.info.vn/irc`, `ws://nightclient.info.vn/irc`, `ws://103.78.2.201/irc` | the **IRC** module, when enabled | player name and IRC message content |
+| `nightclient.info.vn` (`NightUserManager`) | client start, thread every 30 s | **nothing** — `poll()` is empty |
+| Discord webhook (URL supplied by the user in the **StashFinder** module) | stash detected | alert content + `<@userID>` ping |
+| `ServerSocket(port)` in the **EURobotics** module | module enabled | local control socket (bot/external client) |
+| `ServerSocket` proxy in the **PingBypass** module (default port 25565) | module enabled | local TCP proxy to the given MC server |
+| updater | — | `new URL("")` and an empty `SECRET_KEY` → the updater is disabled |
 
-Mod nie wysyła danych do żadnego serwera bez włączenia odpowiedniego modułu lub zalogowania konta. Warto jednak pamiętać, że **IRC i StashFinder** wysyłają dane na zewnątrz, gdy są aktywne.
+The mod does not send data to any server unless the relevant module is enabled or an account is signed in. Keep in mind that **IRC and StashFinder** do send data outside when active.
 
-## 3. Dane zapisywane lokalnie
+## 3. Data written locally
 
-Wszystko w katalogu gry (`config`/`night`):
+Everything lives in the game directory (`config`/`night`):
 
-- konfiguracja modułów i boundów (`ConfigManager`),
-- `accounts.json` — konta i **tokeny sesji w postaci jawnej**,
-- `webhook.json` — URL webhooka Discorda,
-- `chestscan/*.json`, `stashfinder/*.json` — wyniki skanów,
-- `rekit/*.json` + ostatni kit — zestawy itemów,
-- obrazy wybrane w GUI.
+- module configuration and binds (`ConfigManager`),
+- `accounts.json` — accounts and **session tokens in plaintext**,
+- `webhook.json` — the Discord webhook URL,
+- `chestscan/*.json`, `stashfinder/*.json` — scan results,
+- `rekit/*.json` plus the last kit — item sets,
+- images picked in the GUI.
 
-`accounts.json` zawiera dane uwierzytelniające w plaintext. Nie synchronizuj katalogu gry z chmurą i nie wysyłaj go osobom trzecim.
+`accounts.json` holds credentials in plaintext. Do not sync the game directory to a cloud drive and do not send it to third parties.
 
-Dodatkowo mod kopiuje zrzut ekranu do schowka systemowego (funkcja „screenshot to clipboard”) — schowek jest czytelny dla innych aplikacji.
+The mod also copies screenshots to the system clipboard ("screenshot to clipboard" feature) — the clipboard is readable by other applications.
 
-## 4. Uprawnienia i zgodność
+## 4. Permissions and compliance
 
-Night to klient typu „cheat/utility” — modyfikuje ruch, rotacje i akcje gracza w sposób niedozwolony na większości serwerów publicznych. Używaj go wyłącznie tam, gdzie regulamin na to pozwala (serwery prywatne, singleplayer, testy). Autorzy i osoba budująca ten JAR nie odpowiadają za bany wynikające z użycia.
+Night is a cheat/utility client: it modifies movement, rotations and player actions in ways that are not allowed on most public servers. Use it only where the rules permit it (private servers, singleplayer, testing). The authors and the person building this JAR are not responsible for bans resulting from its use.
 
-## 5. Integralność artefaktów
+## 5. Artefact integrity
 
-| Plik | SHA-256 |
+| File | SHA-256 |
 |---|---|
-| `Night-src_out-build-26.2.zip` (oryginał) | `041c9bb559e0761fe959d9e67523d51bcb260998c650af2dc900d709cdf670a4` |
-| `night-26.2-6d2d2b8.jar` (ten build) | `8ba76b39ea311928bb7816a959b40a9b023bdfca9f352fd87aee33eab9d2d7e2` |
-| `night-26.2-6d2d2b8-sources.jar` | `b0e00606373333c88a9cfbc96f93a5a7b37170001835c0165b0ed68d7d605073` |
+| `Night-src_out-build-26.2.zip` (original) | `041c9bb559e0761fe959d9e67523d51bcb260998c650af2dc900d709cdf670a4` |
+| `night-26.2-TAGHASH.jar` (this build) | `JARHASH` |
+| `night-26.2-TAGHASH-sources.jar` | `SRCHASH` |
 
-Build jest reprodukowalny: archiwa mają stałe znaczniki czasu i posortowane wpisy, a nazwa zawiera commit (`night-26.2-<hash>.jar`). Ten sam commit daje identyczne sumy — można je sprawdzić ponownym `./gradlew build` i plikiem `build/libs/SHA256SUMS.txt`.
+The build is reproducible: both archives use fixed timestamps and sorted entries, and the file name contains the commit (`night-26.2-<hash>.jar`). The same commit produces identical checksums — verify them with another `./gradlew build` and `build/libs/SHA256SUMS.txt`.

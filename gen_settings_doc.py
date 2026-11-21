@@ -107,20 +107,20 @@ for c in cats: cats[c].sort(key=lambda x:x['name'])
 
 total=sum(len(m['settings']) for m in modules)
 out=[]
-out.append('# Night 26.2 — kompletny opis ustawień\n')
-out.append('Dokument wygenerowany automatycznie z kodu źródłowego (`src/main/java/night/modules`). Zawiera **%d modułów** i **%d ustawień**.\n' % (len(modules),total))
-out.append('## Jak czytać tabele\n')
-out.append('- **Ustawienie** — nazwa widoczna w GUI i używana w komendach (`<module> <setting> <value>`).\n- **Typ** — klasa ustawienia: `Boolean` (przełącznik), `Number` (suwak/liczba), `Mode` (lista wyboru), `String` (tekst), `Color` (kolor), `Bind` (klawisz), `Whitelist` (lista bloków/itemów), `Image`, `Position`, `Category` (nagłówek grupy).\n- **Domyślnie** — wartość startowa.\n- **Zakres / opcje** — dopuszczalny zakres liczbowy lub lista dostępnych wartości.\n- **Grupa** — ustawienie widoczne tylko gdy wskazane ustawienie przyjmuje podane wartości.\n- **Tag** — krótka etykieta wyświetlana w GUI obok nazwy.\n')
+out.append('# Night 26.2 — complete settings reference\n')
+out.append('Generated automatically from the sources (`src/main/java/night/modules`). Covers **%d modules** and **%d settings**.\n' % (len(modules),total))
+out.append('## How to read the tables\n')
+out.append('- **Setting** — the name shown in the GUI and used in commands (`<module> <setting> <value>`).\n- **Type** — setting class: `Boolean` (toggle), `Number` (slider/number), `Mode` (choice list), `String` (text), `Color`, `Bind` (key), `Whitelist` (block/item list), `Image`, `Position`, `Category` (group header).\n- **Default** — the starting value.\n- **Range / options** — the allowed numeric range or the list of available values.\n- **Group** — the setting is only visible while the referenced setting has one of the listed values.\n- **Tag** — a short label rendered next to the name in the GUI.\n')
 for c,ms in cats.items():
-    out.append('\n## Kategoria: %s (%d modułów)\n' % (c,len(ms)))
+    out.append('\n## Category: %s (%d modules)\n' % (c,len(ms)))
     for m in ms:
         out.append('\n### %s\n' % m['name'])
         out.append('%s\n\n' % m['desc'])
-        out.append('Plik: `%s`\n\n' % m['file'].replace('src/main/java/',''))
+        out.append('File: `%s`\n\n' % m['file'].replace('src/main/java/',''))
         if not m['settings']:
-            out.append('_Moduł nie posiada własnych ustawień._\n')
+            out.append('_This module has no settings of its own._\n')
             continue
-        out.append('| Ustawienie | Typ | Domyślnie | Zakres / opcje | Grupa | Tag | Opis |\n')
+        out.append('| Setting | Type | Default | Range / options | Group | Tag | Description |\n')
         out.append('|---|---|---|---|---|---|---|\n')
         for s in m['settings']:
             desc=s['desc'].replace('|','\\|')
@@ -128,7 +128,7 @@ for c,ms in cats.items():
                 s['name'], s['type'].replace('Setting',''), s['default'].replace('|','\\|'),
                 s['extra'].replace('|','\\|'), (s['vis'] or '').replace('|','\\|'),
                 s['tag'] or '', desc))
-out.append('\n---\n\nLiczba modułów: **%d**, liczba ustawień: **%d**.\n' % (len(modules),total))
+out.append('\n---\n\nModules: **%d**, settings: **%d**.\n' % (len(modules),total))
 os.makedirs('docs',exist_ok=True)
 open('docs/SETTINGS.md','w',encoding='utf-8').write(''.join(out))
 json.dump(modules,open('settings_index.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
