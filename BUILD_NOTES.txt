@@ -1,0 +1,11 @@
+Night src_out build scaffold
+Target: Minecraft 26.2 / Fabric / Java 25
+
+IMPORTANT:
+- This ZIP was supplied as decompiled source and contains no original Gradle build files.
+- Some methods were reported by the decompiler as not fully structured.
+- The Fabric API version in gradle.properties is a placeholder and must be replaced with a published version compatible with Minecraft 26.2.
+- This scaffold has NOT been successfully compiled or tested here. Do not treat it as a ready-to-use JAR.
+- Build on a machine/Termux environment with Java 25 and Gradle wrapper installed/configured:
+    gradle build
+- Fix any dependency/version resolution errors first, then address Java compiler errors. A decompiled project may require manual source repairs.

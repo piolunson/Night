@@ -1,0 +1,27 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Logi i pliki pomocnicze budowania
+*.log
+cp.txt
+sources.txt
+settings_index.json
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Systemy
+.DS_Store
+Thumbs.db
+
+# Lokalne dane moda / sekrety
+run/
+*.env
+.env
