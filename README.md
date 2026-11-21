@@ -25,16 +25,19 @@ export JAVA_HOME=/ścieżka/do/jdk-25
 Wynik:
 
 ```
-build/libs/night-26.2.jar           # mod (gotowy do wrzucenia do mods/)
-build/libs/night-26.2-sources.jar   # źródła w JAR-ze
+build/libs/night-26.2-<hash>.jar             # mod (gotowy do wrzucenia do mods/)
+build/libs/night-26.2-<hash>-sources.jar     # źródła w JAR-ze
+build/libs/SHA256SUMS.txt                    # sumy kontrolne obu JAR-ów
 ```
 
 Sama kompilacja: `./gradlew compileJava`.
 
+`<hash>` to skrócony hash commita, z którego zbudowano (np. `night-26.2-8ceb09b.jar`), a `build/libs/SHA256SUMS.txt` zawiera sumy SHA-256 obu archiwów. `./gradlew build` uruchamia też bramkę bajtkodową (`tools/ClassCheck.java`): każda skompilowana klasa jest parsowana i definiowana przez JVM, więc błąd typu `ClassFormatError` (np. zduplikowana metoda po dekompilacji) kończy build błędem, zamiast wywalić grę. To samo robi CI: `.github/workflows/build.yml`.
+
 ## Instalacja
 
 1. Zainstaluj Fabric Loader 0.19.3+ dla Minecraft 26.2.
-2. Wrzuć `night-26.2.jar` oraz **Fabric API** (`fabric-api-0.161.0+26.2.jar`) do `mods/`.
+2. Wrzuć `night-26.2-<hash>.jar` oraz **Fabric API** (`fabric-api-0.161.0+26.2.jar`) do `mods/`.
 3. Uruchom profil Fabric. Mod wymaga Javy 25.
 
 ## Struktura projektu

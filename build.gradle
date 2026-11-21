@@ -42,7 +42,7 @@ def buildVersion = project.version.toString()
 def buildMcVersion = project.minecraft_version.toString()
 def buildHash = (findProperty('buildHash') ?: gitValue(['rev-parse', '--short', 'HEAD'], 'unknown')).toString()
 def buildRevision = (findProperty('buildRevision') ?: gitValue(['rev-list', '--count', 'HEAD'], '0')).toString()
-def buildDate = (findProperty('buildDate') ?: java.time.LocalDate.now().toString()).toString()
+def buildDate = (findProperty('buildDate') ?: gitValue(['log', '-1', '--format=%cs'], java.time.LocalDate.now().toString())).toString()
 
 def buildInfoDir = layout.buildDirectory.dir('generated/buildinfo/java')
 
@@ -111,3 +111,87 @@ tasks.register('printCompileClasspath') {
         println sourceSets.main.compileClasspath.asPath
     }
 }
+
+// --- compiled-class gate ---------------------------------------------------------------------
+// Fails the build on malformed bytecode (e.g. duplicate methods left behind by the decompiler)
+// instead of letting the JVM reject the class in game.
+tasks.register('verifyBytecode') {
+    group = 'verification'
+    description = 'Parses every compiled class and asks the JVM to define it, failing on ClassFormatError/VerifyError.'
+    dependsOn tasks.named('classes')
+    def classesDir = layout.buildDirectory.dir('classes/java/main')
+    def toolFile = layout.projectDirectory.file('tools/ClassCheck.java')
+    def toolchain = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
+    doLast {
+        def arguments = [toolchain.get().executablePath.asFile.absolutePath,
+                         toolFile.asFile.absolutePath,
+                         classesDir.get().asFile.absolutePath,
+                         sourceSets.main.compileClasspath.asPath]
+        def output = providers.exec {
+            commandLine(arguments)
+            ignoreExitValue = true
+        }
+        def stdout = output.standardOutput.asText.get()
+        def stderr = output.standardError.asText.get()
+        def exitCode = output.result.get().exitValue
+        if (!stdout.isBlank()) {
+            print(stdout)
+        }
+        if (!stderr.isBlank()) {
+            System.err.print(stderr)
+        }
+        if (exitCode != 0) {
+            throw new GradleException("Bytecode verification failed (exit code ${exitCode}); see the report above.")
+        }
+    }
+}
+
+tasks.named('check') { dependsOn tasks.named('verifyBytecode') }
+
+// --- deterministic archives ------------------------------------------------------------------
+def releaseName = "night-${project.version}-${buildHash}"
+
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+tasks.named('jar', Jar) {
+    archiveFileName = "${releaseName}.jar"
+}
+
+tasks.named('sourcesJar', Jar) {
+    archiveFileName = "${releaseName}-sources.jar"
+}
+
+tasks.register('checksums') {
+    group = 'build'
+    description = 'Writes SHA256SUMS.txt for the release jars.'
+    dependsOn tasks.named('jar'), tasks.named('sourcesJar')
+    def libsDir = layout.buildDirectory.dir('libs')
+    outputs.file(libsDir.map { it.file('SHA256SUMS.txt') })
+    doLast {
+        def dir = libsDir.get().asFile
+        def lines = new StringBuilder()
+        dir.listFiles()
+           ?.findAll { it.isFile() && it.name.endsWith('.jar') }
+           ?.sort { it.name }
+           ?.each { file ->
+               def digest = java.security.MessageDigest.getInstance('SHA-256')
+               file.withInputStream { stream ->
+                   byte[] buffer = new byte[65536]
+                   int read
+                   while ((read = stream.read(buffer)) != -1) {
+                       digest.update(buffer, 0, read)
+                   }
+               }
+               def hash = digest.digest().collect { String.format('%02x', it) }.join()
+               lines.append(hash).append('  ').append(file.name).append('\n')
+           }
+        def target = new File(dir, 'SHA256SUMS.txt')
+        target.text = lines.toString()
+        print(lines.toString())
+    }
+}
+
+tasks.named('build') { dependsOn tasks.named('checksums') }
