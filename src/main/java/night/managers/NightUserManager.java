@@ -61,7 +61,7 @@ implements IMinecraft {
     private void poll() {
     }
 
-    private static /* synthetic */ void lambda$tryPoll$0(Set fresh, JsonElement el) {
+    private static void addUsername(Set fresh, JsonElement el) {
         fresh.add(el.getAsString().toLowerCase());
     }
 }

@@ -77,7 +77,7 @@ Night to klient typu „cheat/utility” — modyfikuje ruch, rotacje i akcje gr
 | Plik | SHA-256 |
 |---|---|
 | `Night-src_out-build-26.2.zip` (oryginał) | `041c9bb559e0761fe959d9e67523d51bcb260998c650af2dc900d709cdf670a4` |
-| `night-26.2.jar` (ten build) | `79c7485895771fda929b4d56ffe3e5371c6c6486aee211889c69c7330976b07d` |
-| `night-26.2-sources.jar` | `48d53df6a9129e1182499cb61f81d7c0e14126d05be3b385a9f511a656b75d5d` |
+| `night-26.2.jar` (ten build) | `18a6ecf584d69ac91ddbb5e7e71af1ae72e524022b5615ee3cfccdfcf5e6afd6` |
+| `night-26.2-sources.jar` | `02882e88657d101f7336897ed0a0c38f990b94552757530c658e1fc701015b94` |
 
 Hash builda dotyczy artefaktu z tego konkretnego środowiska; przy ponownym budowaniu JAR będzie miał inny hash (Gradle nie jest deterministyczny domyślnie).

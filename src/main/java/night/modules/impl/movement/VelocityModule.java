@@ -214,7 +214,7 @@ extends Module {
                     }
                 }
                 if (event.isCancelled()) {
-                    mc.executeBlocking(() -> VelocityModule.lambda$onPacketReceive$0(explode));
+                    mc.executeBlocking(() -> VelocityModule.playExplosionEffects(explode));
                 }
             }
         }
@@ -277,7 +277,7 @@ extends Module {
         return this.horizontal.getValue().intValue() + "%, " + this.vertical.getValue().intValue() + "%";
     }
 
-    private static /* synthetic */ void lambda$onPacketReceive$0(ClientboundExplodePacket packet) {
+    private static void playExplosionEffects(ClientboundExplodePacket packet) {
         Vec3 vec3d = packet.center();
         mc.getSoundManager().play((SoundInstance)new SimpleSoundInstance((SoundEvent)packet.explosionSound().value(), SoundSource.BLOCKS, 4.0f, (1.0f + (VelocityModule.mc.level.getRandom().nextFloat() - VelocityModule.mc.level.getRandom().nextFloat()) * 0.2f) * 0.7f, VelocityModule.mc.level.getRandom(), vec3d.x, vec3d.y, vec3d.z));
         VelocityModule.mc.level.addParticle(packet.explosionParticle(), vec3d.x, vec3d.y, vec3d.z, 1.0, 0.0, 0.0);
