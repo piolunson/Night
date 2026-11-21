@@ -10,6 +10,8 @@ public class PingBypassFlags {
     public static volatile boolean suppressEncoderErrors = false;
     public static volatile boolean suppressAllDisconnects = false;
     public static volatile boolean proxyForwardingActive = false;
+    /** True on a PingBypass proxy started with {@code pb.light=true} (no world rendering). */
+    public static volatile boolean lightProxy = false;
     public static volatile boolean clientOnGround = true;
     public static volatile boolean clientHorizontalCollision = false;
 

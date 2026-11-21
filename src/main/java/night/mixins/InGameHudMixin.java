@@ -47,6 +47,7 @@ import night.gui.special.MainMenuScreen;
 import night.modules.impl.core.MenuModule;
 import night.modules.impl.miscellaneous.AutoRespawnModule;
 import night.modules.impl.miscellaneous.FakePlayerModule;
+import night.pingbypass.PingBypassFlags;
 import night.utils.minecraft.WorldUtils;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -63,6 +64,9 @@ public class InGameHudMixin {
 
     @Inject(method={"extractRenderState"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/gui/Hud;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V", shift=At.Shift.AFTER)})
     private void render(DeltaTracker tickCounter, boolean shouldRenderLevel, boolean resourcesLoaded, CallbackInfo info, @Local(ordinal=0) GuiGraphicsExtractor context) {
+        if (PingBypassFlags.lightProxy) {
+            return;
+        }
         if (this.minecraft.gui.hud.isHidden()) {
             return;
         }

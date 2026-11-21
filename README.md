@@ -67,6 +67,86 @@ The `Capes` module ships eight original designs (`Night`, `Aurora`, `Circuit`, `
 python3 tools/gen_capes.py
 ```
 
+## PingBypass proxy
+
+Night can run as a **PingBypass proxy**: a second Minecraft client that sits close to the target server, holds the server session and executes the latency-sensitive modules. Your own client connects to the proxy instead of to the server, and every action those modules make is sent from the proxy — so it waits for the proxy's ping (usually a few ms in the same datacentre), not for your home connection.
+
+The proxy is not a Minecraft server and not a network-level proxy: it speaks Night's own protocol, needs its own signed-in Minecraft account and must be reachable on a TCP port. Only one client can be attached to a proxy at a time.
+
+### 1. Proxy host
+
+On the machine that should act as the proxy (a VPS near the target server):
+
+1. Install Minecraft 26.2, Fabric Loader 0.19.3+, Fabric API and `night-26.2-<hash>.jar`.
+2. Sign the client into the Minecraft account that should be on the server — **the proxy joins the target server with that account**, not with the account on your own PC.
+3. Create `night/pingbypass.properties` in the game directory:
+
+```properties
+pb.server=true
+pb.ip=0.0.0.0
+pb.port=25565
+pb.password=change-me
+pb.light=true
+```
+
+| Key | Default | Meaning |
+|---|---|---|
+| `pb.server` | `false` | `true` starts the proxy endpoint. Without it the file is ignored and Night runs as a normal client. |
+| `pb.ip` | `0.0.0.0` | Address the proxy listens on. `0.0.0.0` accepts connections from outside; use `127.0.0.1` for a local test. |
+| `pb.port` | `25565` | TCP port of the proxy. Open it in the firewall. |
+| `pb.password` | *(empty)* | Shared secret; the client must send the same value in the `Password` field. Empty means no password. |
+| `pb.light` | `false` | Light (headless) mode — see below. `pb.headless` is accepted as an alias. |
+
+4. Start the client and leave it running. The log shows `PingBypass proxy server started on <ip>:<port>`.
+
+`pb.light=true` is meant for a VPS without a GPU:
+
+- the world is not rendered at all (`LevelRenderer.render` is cancelled), so no chunk meshes are built and no world geometry is drawn;
+- Night's world overlay/ESP and HUD rendering are skipped as well;
+- the frame-rate throttle for iconified or unfocused windows is disabled, so the client keeps ticking at a steady rate instead of running ticks in bursts;
+- game logic, chunk loading, entity tracking, modules and packet handling keep running normally, and the world replay sent to the remote client is unchanged.
+
+It is not an operating-system headless mode: Minecraft still creates a window and needs OpenGL, so on a VPS run it under a virtual display (for example `Xvfb` with Mesa software rendering). Capping the in-game framerate (for example at 60) keeps CPU use reasonable; do not cap it very low, because the tick loop is driven by the render loop.
+
+### 2. Your client
+
+1. Enable **PingBypass** in the ClickGUI (CORE category). The row opens the settings screen on left click and connects/disconnects on right click.
+2. In the `PingBypass` screen set:
+   - `Proxy IP` / `Port` — the proxy host and `pb.port`;
+   - `Password` — the same value as `pb.password` on the proxy;
+   - `Target Server` — `host` or `host:port` of the Minecraft server the proxy should join.
+3. Press **Connect**. The client connects to the proxy, authenticates with the password and asks it to join the target server. If the proxy is already in a world, that session is reused instead of reconnecting.
+4. **Save** stores the fields without connecting, **Disconnect** ends the proxy session, **Back**/`Esc` returns to the ClickGUI.
+
+### 3. Modules that actually move to the proxy
+
+Only modules written for it are offloaded. Everything else keeps running on your own client with your own ping.
+
+| Modules | How they are offloaded |
+|---|---|
+| `AutoCrystal`, `AutoTotem` | Migrated: the proxy runs its dedicated server-side implementation (`ServerAutoCrystal`, `ServerAutoTotem`); the copy on your client idles while the proxy session is active. |
+| `SpeedMine` | Migrated: the proxy's own module instance mines, your client defers while the proxy session is active. |
+| `AutoWeb`, `Blocker`, `Criticals`, `CombatPlace`, `OpponentScaffold`, `SelfFill`, `HoleFill`, `AutoArmor`, `KillAura`, `ObsidianFarmer`, `SelfTrap`, `FakePlayer`, `KeyAction` | `proxyEnhanced`: the module runs inside the proxy client. Each has a `ProxyMode` setting — `Auto`/`Proxy` run it on the proxy, `Local` keeps it on your client. |
+
+`KeyAction` is persistent (always enabled) and also has `ProxyMode`.
+
+The remaining modules — for example `AutoTrap`, `Surround`, `Scaffold`, `Phase`, movement and render modules — always stay on your client. They were not written to execute behind the proxy, so there is no setting that moves them.
+
+### 4. What to expect
+
+- Combat modules listed above react with the proxy's latency to the target server, not yours; that is the point of the proxy.
+- The world you see still travels `server → proxy → you`, so your view is delayed by the extra hop. The proxy does not lower your ping; it moves the decision point.
+- A proxy on the same machine or network as your client gives no benefit.
+- If the proxy host cannot keep up (weak CPU, software rendering, very low FPS cap), its modules run late; light mode plus a reasonable framerate cap is what keeps it stable.
+
+### 5. Troubleshooting
+
+- `pb.light` has no effect unless `pb.server=true`.
+- `Wrong password` in the proxy log: `pb.password` and the client field differ.
+- Only one client can connect; a second connection is rejected during login.
+- If the proxy cannot join the server, check the target address/port and that the proxy account is signed in and allowed on that server.
+- `pb.ip=0.0.0.0` exposes the port; restrict it with a firewall and always set a password.
+
 ## Settings reference
 
 [`docs/SETTINGS.md`](docs/SETTINGS.md) — a generated description of **every setting in every module**: name, type, default value, range or option list, visibility condition (group) and the full description of each setting.

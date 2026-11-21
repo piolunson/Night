@@ -49,6 +49,7 @@ import night.managers.WaypointManager;
 import night.managers.WorldManager;
 import night.modules.ModuleManager;
 import night.pingbypass.PingBypassConfig;
+import night.pingbypass.PingBypassFlags;
 import night.pingbypass.modules.PbModuleManager;
 import night.pingbypass.modules.submodules.crystal.ServerAutoCrystal;
 import night.pingbypass.modules.submodules.totem.ServerAutoTotem;
@@ -112,7 +113,11 @@ implements ModInitializer {
         try {
             PINGBYPASS_CONFIG = new PingBypassConfig(FabricLoader.getInstance().getGameDir());
             PINGBYPASS_CONFIG.load();
+            PingBypassFlags.lightProxy = PINGBYPASS_CONFIG.isServer() && PINGBYPASS_CONFIG.isLight();
             LOGGER.info("PingBypass mode: {}", (Object)(PINGBYPASS_CONFIG.isServer() ? "server" : "client"));
+            if (PingBypassFlags.lightProxy) {
+                LOGGER.info("PingBypass light mode enabled: world rendering and Night overlays are disabled, ticks keep running");
+            }
             if (PINGBYPASS_CONFIG.isServer()) {
                 try {
                     PROXY_SERVER = new ProxyServer(PINGBYPASS_CONFIG);

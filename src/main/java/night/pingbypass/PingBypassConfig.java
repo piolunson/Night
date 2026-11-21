@@ -27,10 +27,13 @@ public class PingBypassConfig {
     public static final String DEFAULT_IP = "0.0.0.0";
     public static final String DEFAULT_PORT = "25565";
     public static final String DEFAULT_PASSWORD = "";
+    public static final String DEFAULT_LIGHT = "false";
     private static final String KEY_SERVER = "pb.server";
     private static final String KEY_IP = "pb.ip";
     private static final String KEY_PORT = "pb.port";
     private static final String KEY_PASSWORD = "pb.password";
+    private static final String KEY_LIGHT = "pb.light";
+    private static final String KEY_HEADLESS = "pb.headless";
     private final Properties properties = new Properties();
     private final Path configPath;
     private boolean loaded;
@@ -74,6 +77,7 @@ public class PingBypassConfig {
         defaults.setProperty(KEY_IP, DEFAULT_IP);
         defaults.setProperty(KEY_PORT, DEFAULT_PORT);
         defaults.setProperty(KEY_PASSWORD, DEFAULT_PASSWORD);
+        defaults.setProperty(KEY_LIGHT, DEFAULT_LIGHT);
         try (OutputStream out = Files.newOutputStream(this.configPath, new OpenOption[0]);){
             defaults.store(out, "PingBypass configuration");
         }
@@ -107,6 +111,16 @@ public class PingBypassConfig {
         return this.getProperty(KEY_PASSWORD, DEFAULT_PASSWORD);
     }
 
+    /**
+     * Light proxy mode: the proxy keeps ticking and running modules but stops rendering the
+     * world, so a VPS instance does not starve its own tick loop on world rendering.
+     * {@code pb.headless} is accepted as an alias of {@code pb.light}.
+     */
+    public boolean isLight() {
+        return Boolean.parseBoolean(this.getProperty(KEY_LIGHT, DEFAULT_LIGHT))
+            || Boolean.parseBoolean(this.getProperty(KEY_HEADLESS, DEFAULT_LIGHT));
+    }
+
     public boolean hasPassword() {
         String password = this.getPassword();
         return password != null && !password.isEmpty();
@@ -126,6 +140,7 @@ public class PingBypassConfig {
         result.setProperty(KEY_IP, this.getIp());
         result.setProperty(KEY_PORT, String.valueOf(this.getPort()));
         result.setProperty(KEY_PASSWORD, this.getPassword());
+        result.setProperty(KEY_LIGHT, String.valueOf(this.isLight()));
         return result;
     }
 

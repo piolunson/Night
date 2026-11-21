@@ -49,6 +49,7 @@ import net.minecraft.world.item.ItemStack;
 import night.Night;
 import night.events.impl.RenderWorldEvent;
 import night.mixins.accessors.LevelRendererAccessor;
+import night.pingbypass.PingBypassFlags;
 import night.modules.impl.visuals.NoRenderModule;
 import night.modules.impl.visuals.ShadersModule;
 import night.utils.graphics.EspShader;
@@ -96,6 +97,9 @@ public abstract class GameRendererMixin {
 
     @Inject(method={"renderLevel"}, at={@At(value="INVOKE", target="Lnet/minecraft/client/renderer/LevelRenderer;render(Lcom/mojang/blaze3d/resource/GraphicsResourceAllocator;Lnet/minecraft/client/DeltaTracker;ZLnet/minecraft/client/renderer/state/level/CameraRenderState;Lorg/joml/Matrix4fc;Lcom/mojang/blaze3d/buffers/GpuBufferSlice;Lorg/joml/Vector4f;Z)V", shift=At.Shift.AFTER)})
     private void renderWorld$swap(DeltaTracker tickCounter, CallbackInfo info, @Local(ordinal=0) Matrix4fc modelViewMatrix, @Local CameraRenderState cameraState) {
+        if (PingBypassFlags.lightProxy) {
+            return;
+        }
         float tickDelta = tickCounter.getGameTimeDeltaPartialTick(false);
         RenderSystem.getModelViewStack().pushMatrix();
         RenderSystem.getModelViewStack().mul(modelViewMatrix);

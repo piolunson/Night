@@ -16,6 +16,7 @@ package night.mixins;
 
 import com.mojang.blaze3d.platform.FramerateLimitTracker;
 import net.minecraft.client.Minecraft;
+import night.pingbypass.PingBypassFlags;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,6 +34,12 @@ public abstract class FramerateLimitTrackerMixin {
 
     @Inject(method={"getThrottleReason"}, at={@At(value="HEAD")}, cancellable=true)
     private void night$preventThrottleInGui(CallbackInfoReturnable<FramerateLimitTracker.FramerateThrottleReason> cir) {
+        if (PingBypassFlags.lightProxy) {
+            // A light proxy renders almost nothing, so it must not be throttled to 10 FPS when
+            // its window is iconified or unfocused -- that bunches ticks instead of losing frames.
+            cir.setReturnValue(FramerateLimitTracker.FramerateThrottleReason.NONE);
+            return;
+        }
         if (this.minecraft != null && this.minecraft.getWindow() != null) {
             if (this.minecraft.getWindow().isIconified()) {
                 cir.setReturnValue(FramerateLimitTracker.FramerateThrottleReason.WINDOW_ICONIFIED);
